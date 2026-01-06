@@ -16,15 +16,18 @@
       --bg-primary: #0a0a0a;
       --bg-secondary: #121212;
       --bg-card: #1a1a1a;
+      --bg-surface: #202020;
       --border-color: #2a2a2a;
+      --border-light: #3a3a3a;
       --accent-primary: #ffffff;
-      --accent-secondary: #cccccc;
+      --accent-secondary: #e0e0e0;
       --text-primary: #ffffff;
-      --text-secondary: #aaaaaa;
+      --text-secondary: #b0b0b0;
       --text-tertiary: #888888;
-      --gradient-primary: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
-      --gradient-accent: linear-gradient(135deg, #333333 0%, #666666 100%);
-      --accent-glow: 0 0 20px rgba(255, 255, 255, 0.1);
+      --gradient-primary: linear-gradient(145deg, #1a1a1a 0%, #0f0f0f 100%);
+      --gradient-accent: linear-gradient(135deg, #333333 0%, #555555 100%);
+      --accent-glow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     }
 
     * {
@@ -40,29 +43,31 @@
     }
 
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background: var(--bg-primary);
       color: var(--text-primary);
       line-height: 1.6;
       position: relative;
       height: 100vh;
       width: 100vw;
+      font-weight: 400;
+      letter-spacing: 0.02em;
     }
 
     .container {
       width: 1920px;
       height: 1080px;
       margin: 0 auto;
-      padding: 40px;
+      padding: 60px 80px;
       position: relative;
       display: grid;
-      grid-template-columns: 1fr 400px;
-      grid-template-rows: 80px 1fr 200px;
-      gap: 30px;
+      grid-template-columns: 1.8fr 1fr;
+      grid-template-rows: auto 1fr auto;
+      gap: 40px;
       grid-template-areas: 
-        "header sidebar"
+        "header header"
         "main sidebar"
-        "footer sidebar";
+        "footer footer";
     }
 
     /* Header */
@@ -71,127 +76,182 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0 20px;
-      border-bottom: 1px solid var(--border-color);
+      padding: 0 20px 30px 20px;
+      border-bottom: 1px solid var(--border-light);
     }
 
-    .logo {
+    .logo-container {
       display: flex;
       align-items: center;
-      gap: 15px;
+      gap: 20px;
     }
 
     .logo-icon {
-      width: 50px;
-      height: 50px;
+      width: 56px;
+      height: 56px;
       background: var(--gradient-accent);
-      border-radius: 12px;
+      border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 800;
-      font-size: 1.5rem;
+      font-weight: 700;
+      font-size: 1.8rem;
       color: var(--text-primary);
       box-shadow: var(--accent-glow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .logo-icon::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
     }
 
     .logo-text {
-      font-size: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .logo-title {
+      font-size: 2.2rem;
       font-weight: 700;
-      background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
+      background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      letter-spacing: -0.02em;
+    }
+
+    .logo-subtitle {
+      font-size: 1rem;
+      color: var(--text-tertiary);
+      font-weight: 400;
     }
 
     .security-badge {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 10px 20px;
-      font-size: 0.9rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      border-radius: 10px;
+      padding: 12px 24px;
+      font-size: 0.95rem;
       color: var(--accent-secondary);
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       box-shadow: var(--accent-glow);
+      transition: all 0.3s ease;
+    }
+
+    .security-badge:hover {
+      border-color: var(--accent-secondary);
+      transform: translateY(-2px);
     }
 
     /* Main Content */
     .main-content {
       grid-area: main;
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 30px;
+      grid-template-columns: 1fr;
+      grid-template-rows: auto 1fr;
+      gap: 40px;
       height: 100%;
     }
 
-    .status-card {
+    .status-section {
       background: var(--gradient-primary);
-      border: 1px solid var(--border-color);
-      border-radius: 20px;
+      border: 1px solid var(--border-light);
+      border-radius: 24px;
       padding: 50px;
       position: relative;
       overflow: hidden;
+      box-shadow: var(--card-shadow);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .status-section:hover {
+      border-color: #444444;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .status-content {
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
-      box-shadow: var(--accent-glow);
-      transition: all 0.3s ease;
+      justify-content: center;
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
     }
 
-    .status-card:hover {
-      border-color: #444444;
-      box-shadow: 0 0 30px rgba(255, 255, 255, 0.15);
-    }
-
-    .status-icon {
-      width: 120px;
-      height: 120px;
-      background: var(--bg-card);
+    .status-icon-container {
+      width: 140px;
+      height: 140px;
+      background: var(--bg-surface);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       margin-bottom: 40px;
-      border: 3px solid var(--border-color);
+      border: 1px solid var(--border-light);
       box-shadow: var(--accent-glow);
+      position: relative;
+      overflow: hidden;
     }
 
-    .status-icon svg {
-      width: 60px;
-      height: 60px;
+    .status-icon-container::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1) 0%, transparent 70%);
+    }
+
+    .status-icon {
+      width: 70px;
+      height: 70px;
       fill: var(--accent-secondary);
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+    }
+
+    .status-text {
+      width: 100%;
     }
 
     .status-title {
-      font-size: 2.5rem;
+      font-size: 2.8rem;
       font-weight: 700;
-      text-align: center;
       margin-bottom: 20px;
       background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      line-height: 1.2;
     }
 
     .status-description {
       color: var(--text-secondary);
-      text-align: center;
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       margin-bottom: 40px;
-      max-width: 600px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
     }
 
-    .button-group {
+    .status-actions {
       display: flex;
       gap: 20px;
       margin-top: 30px;
     }
 
     .btn {
-      padding: 18px 36px;
+      padding: 18px 40px;
       border-radius: 12px;
       font-size: 1.1rem;
       font-weight: 600;
@@ -203,70 +263,124 @@
       align-items: center;
       justify-content: center;
       gap: 12px;
-      min-width: 220px;
+      min-width: 240px;
       box-shadow: var(--accent-glow);
+      letter-spacing: 0.02em;
     }
 
     .btn-primary {
       background: var(--gradient-accent);
       color: var(--text-primary);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      transition: left 0.6s;
+    }
+
+    .btn-primary:hover::before {
+      left: 100%;
     }
 
     .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(255, 255, 255, 0.15);
     }
 
     .btn-secondary {
-      background: transparent;
+      background: var(--bg-surface);
       color: var(--accent-secondary);
-      border: 2px solid var(--border-color);
+      border: 1px solid var(--border-light);
     }
 
     .btn-secondary:hover {
-      border-color: #444444;
-      transform: translateY(-2px);
+      border-color: var(--accent-secondary);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(255, 255, 255, 0.1);
     }
 
-    /* Info Cards Grid */
     .info-grid {
       display: grid;
-      grid-template-columns: 1fr;
-      grid-template-rows: repeat(3, 1fr);
-      gap: 20px;
-      height: 100%;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      height: fit-content;
     }
 
     .info-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 16px;
-      padding: 30px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      border-radius: 20px;
+      padding: 35px 30px;
       transition: all 0.3s ease;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      box-shadow: var(--accent-glow);
+      box-shadow: var(--card-shadow);
+      position: relative;
+      overflow: hidden;
+      height: 100%;
+    }
+
+    .info-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent-secondary), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .info-card:hover::before {
+      opacity: 1;
     }
 
     .info-card:hover {
       border-color: #444444;
-      transform: translateX(5px);
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    }
+
+    .info-card-icon {
+      width: 56px;
+      height: 56px;
+      background: var(--bg-card);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 25px;
+      border: 1px solid var(--border-color);
+    }
+
+    .info-card-icon svg {
+      width: 28px;
+      height: 28px;
+      fill: var(--accent-secondary);
     }
 
     .info-card h3 {
       color: var(--accent-secondary);
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       margin-bottom: 15px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
+      font-weight: 600;
+      line-height: 1.3;
     }
 
     .info-card p {
       color: var(--text-tertiary);
       font-size: 1rem;
-      line-height: 1.5;
+      line-height: 1.6;
+      flex-grow: 1;
     }
 
     /* Sidebar */
@@ -274,44 +388,52 @@
       grid-area: sidebar;
       display: flex;
       flex-direction: column;
-      gap: 30px;
-      padding: 30px;
-      background: var(--bg-secondary);
-      border-radius: 20px;
-      border: 1px solid var(--border-color);
-      box-shadow: var(--accent-glow);
+      gap: 40px;
+      padding: 40px;
+      background: var(--bg-surface);
+      border-radius: 24px;
+      border: 1px solid var(--border-light);
+      box-shadow: var(--card-shadow);
+      height: fit-content;
+    }
+
+    .section-title {
+      color: var(--accent-secondary);
+      font-size: 1.5rem;
+      margin-bottom: 25px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid var(--border-color);
     }
 
     .tutorial-section {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
-      border-radius: 16px;
+      border-radius: 18px;
       padding: 30px;
-      flex: 1;
       box-shadow: var(--accent-glow);
-    }
-
-    .tutorial-section h3 {
-      color: var(--accent-secondary);
-      font-size: 1.4rem;
-      margin-bottom: 25px;
-      padding-bottom: 15px;
-      border-bottom: 1px solid var(--border-color);
     }
 
     .step {
       display: flex;
-      gap: 15px;
+      gap: 20px;
       margin-bottom: 25px;
+      padding-bottom: 25px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
     }
 
     .step:last-child {
       margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
     }
 
     .step-number {
-      width: 36px;
-      height: 36px;
+      width: 40px;
+      height: 40px;
       background: var(--gradient-accent);
       border-radius: 50%;
       display: flex;
@@ -320,13 +442,15 @@
       font-weight: 700;
       color: var(--text-primary);
       flex-shrink: 0;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
+      box-shadow: var(--accent-glow);
     }
 
     .step-content h4 {
       color: var(--text-primary);
       margin-bottom: 8px;
-      font-size: 1.1rem;
+      font-size: 1.15rem;
+      font-weight: 600;
     }
 
     .step-content p {
@@ -335,73 +459,85 @@
       line-height: 1.5;
     }
 
+    .step-content a {
+      color: var(--accent-secondary);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s ease;
+    }
+
+    .step-content a:hover {
+      border-bottom-color: var(--accent-secondary);
+    }
+
     .music-player {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
-      border-radius: 16px;
-      padding: 25px;
+      border-radius: 18px;
+      padding: 30px;
       box-shadow: var(--accent-glow);
-    }
-
-    .music-player h3 {
-      color: var(--accent-secondary);
-      font-size: 1.3rem;
-      margin-bottom: 15px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
     }
 
     .music-controls {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 25px;
     }
 
     .music-btn {
       background: var(--gradient-accent);
       border: none;
       color: var(--text-primary);
-      padding: 15px 25px;
-      border-radius: 10px;
+      padding: 18px 30px;
+      border-radius: 12px;
       cursor: pointer;
       transition: all 0.3s ease;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 12px;
-      font-size: 1rem;
+      gap: 15px;
+      font-size: 1.05rem;
       font-weight: 600;
       box-shadow: var(--accent-glow);
     }
 
     .music-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(255, 255, 255, 0.15);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(255, 255, 255, 0.15);
+    }
+
+    .music-btn svg {
+      width: 22px;
+      height: 22px;
+      fill: currentColor;
+    }
+
+    .visualizer-container {
+      width: 100%;
+      height: 100px;
+      background: var(--bg-secondary);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      position: relative;
     }
 
     .visualizer {
       width: 100%;
-      height: 80px;
+      height: 100%;
       position: relative;
-      background: var(--bg-secondary);
-      border-radius: 8px;
-      overflow: hidden;
-      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-around;
+      padding: 15px;
     }
 
     .visualizer-bar {
-      position: absolute;
-      bottom: 0;
-      width: 6px;
+      width: 8px;
       background: var(--gradient-accent);
-      border-radius: 3px 3px 0 0;
-      animation: visualizer 1s ease-in-out infinite alternate;
-    }
-
-    @keyframes visualizer {
-      from { height: 20%; }
-      to { height: 100%; }
+      border-radius: 4px 4px 0 0;
+      transition: height 0.1s ease;
+      min-height: 10px;
     }
 
     /* Footer */
@@ -410,21 +546,39 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 20px;
-      border-top: 1px solid var(--border-color);
+      padding: 30px 20px 0 20px;
+      border-top: 1px solid var(--border-light);
       color: var(--text-tertiary);
-      font-size: 0.9rem;
+      font-size: 0.95rem;
     }
 
     .footer-links {
       display: flex;
-      gap: 30px;
+      gap: 35px;
     }
 
     .footer a {
       color: var(--accent-secondary);
       text-decoration: none;
       transition: color 0.3s ease;
+      font-weight: 500;
+      position: relative;
+      padding: 5px 0;
+    }
+
+    .footer a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--accent-secondary);
+      transition: width 0.3s ease;
+    }
+
+    .footer a:hover::after {
+      width: 100%;
     }
 
     .footer a:hover {
@@ -433,13 +587,14 @@
 
     /* Animations */
     .spinner {
-      width: 70px;
-      height: 70px;
-      border: 4px solid var(--border-color);
+      width: 80px;
+      height: 80px;
+      border: 4px solid rgba(255,255,255,0.1);
       border-top: 4px solid var(--accent-secondary);
       border-radius: 50%;
       animation: spin 1s linear infinite;
-      margin: 30px auto;
+      margin: 40px auto;
+      box-shadow: 0 0 20px rgba(255,255,255,0.1);
     }
 
     @keyframes spin {
@@ -449,27 +604,28 @@
 
     .regirako-container {
       position: absolute;
-      bottom: 40px;
-      right: 40px;
-      width: 180px;
-      height: 180px;
-      opacity: 0.2;
+      bottom: 60px;
+      right: 80px;
+      width: 200px;
+      height: 200px;
+      opacity: 0.08;
       pointer-events: none;
       z-index: 1;
+      filter: grayscale(100%) contrast(120%);
     }
 
     .regirako-container img {
       width: 100%;
       height: 100%;
       object-fit: contain;
-      transition: transform 0.2s ease;
+      transition: transform 0.3s ease;
     }
 
     .hidden {
-      display: none;
+      display: none !important;
     }
 
-    /* Responsive adjustments for 1920x1080 */
+    /* Responsive adjustments */
     @media (max-width: 1920px) and (max-height: 1080px) {
       .container {
         transform: scale(0.95);
@@ -478,29 +634,51 @@
     }
 
     /* Utility classes */
-    .pulse {
-      animation: pulse 2s infinite;
+    .fade-in {
+      animation: fadeIn 0.5s ease forwards;
     }
 
-    @keyframes pulse {
-      0% { opacity: 0.6; }
-      50% { opacity: 1; }
-      100% { opacity: 0.6; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .glow {
-      filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+      filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.2));
+    }
+
+    /* Example code styling */
+    .code-example {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 30px;
+      font-family: 'Consolas', 'Monaco', monospace;
+    }
+
+    .code-example code {
+      color: var(--accent-secondary);
+      font-size: 0.95rem;
+      display: block;
+      line-height: 1.5;
+      word-break: break-all;
     }
 
     /* Status indicators */
-    .status-success {
-      border-color: #444444 !important;
-      box-shadow: 0 0 30px rgba(255, 255, 255, 0.1) !important;
+    .status-success .status-icon-container {
+      border-color: rgba(255,255,255,0.2);
+      box-shadow: 0 0 30px rgba(255,255,255,0.1);
     }
 
-    .status-error {
-      border-color: #444444 !important;
-      box-shadow: 0 0 30px rgba(255, 255, 255, 0.1) !important;
+    .status-error .status-icon-container {
+      border-color: rgba(255,100,100,0.2);
+      box-shadow: 0 0 30px rgba(255,100,100,0.1);
+    }
+
+    /* Smooth transitions */
+    .smooth-transition {
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
   </style>
 </head>
@@ -508,55 +686,60 @@
   <div class="container">
     <!-- Header -->
     <header class="header">
-      <div class="logo">
+      <div class="logo-container">
         <div class="logo-icon">M2U</div>
-        <div class="logo-text">Magnet2URL</div>
+        <div class="logo-text">
+          <div class="logo-title">Magnet2URL</div>
+          <div class="logo-subtitle">Redirecionador seguro de links magnet</div>
+        </div>
       </div>
       <div class="security-badge">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
           <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.1,7 14,7.9 14,9C14,10.1 13.1,11 12,11C10.9,11 10,10.1 10,9C10,7.9 10.9,7 12,7M18,14.66C18,15.5 17.75,16.31 17.31,17H6.69C6.25,16.31 6,15.5 6,14.66V10.34C6,9.5 6.25,8.69 6.69,8H17.31C17.75,8.69 18,9.5 18,10.34V14.66Z"/>
         </svg>
-        Open Source & Secure
+        Open Source • Sem rastreamento • 100% Seguro
       </div>
     </header>
 
     <!-- Main Content -->
     <main class="main-content">
-      <!-- Left Column: Status Card -->
-      <div class="status-card" id="statusCard">
-        <!-- Conteúdo será preenchido pelo JavaScript -->
-      </div>
+      <!-- Status Section -->
+      <section class="status-section" id="statusSection">
+        <div class="status-content" id="statusContent">
+          <!-- Conteúdo será preenchido pelo JavaScript -->
+        </div>
+      </section>
 
-      <!-- Right Column: Info Cards -->
+      <!-- Info Cards Grid -->
       <div class="info-grid">
         <div class="info-card">
-          <h3>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+          <div class="info-card-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
               <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1Z"/>
             </svg>
-            Segurança Garantida
-          </h3>
-          <p>Nenhum dado é coletado ou armazenado. O processo ocorre inteiramente no seu navegador.</p>
+          </div>
+          <h3>Segurança Total</h3>
+          <p>Tudo ocorre localmente no seu navegador. Nenhum dado é enviado para servidores externos ou coletado.</p>
         </div>
 
         <div class="info-card">
-          <h3>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+          <div class="info-card-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
               <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
             </svg>
-            Código Aberto
-          </h3>
-          <p>Projeto 100% open-source. Verifique o código no GitHub para total transparência.</p>
+          </div>
+          <h3>Código Aberto</h3>
+          <p>Transparência completa. Todo o código está disponível no GitHub para auditoria e contribuições.</p>
         </div>
 
         <div class="info-card">
-          <h3>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+          <div class="info-card-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
               <path d="M12,15A2,2 0 0,1 10,13C10,11.89 10.9,11 12,11A2,2 0 0,1 14,13A2,2 0 0,1 12,15M7,7C7,5.89 7.89,5 9,5A2,2 0 0,1 11,7A2,2 0 0,1 9,9C7.89,9 7,8.1 7,7M12,2C8.43,2 5.23,3.54 3,6L12,22L21,6C18.78,3.54 15.57,2 12,2Z"/>
             </svg>
-            Compatível
-          </h3>
-          <p>Funciona com qualquer cliente de torrent que suporte links magnet.</p>
+          </div>
+          <h3>Compatível Universal</h3>
+          <p>Funciona com qBittorrent, μTorrent, Transmission e qualquer cliente que suporte links magnet.</p>
         </div>
       </div>
     </main>
@@ -566,55 +749,63 @@
       <div class="footer-links">
         <a href="https://github.com/Regirako/Magnet2URL" target="_blank">GitHub</a>
         <a href="https://github.com/Regirako" target="_blank">Autor</a>
-        <a href="#" onclick="showHelp()">Ajuda</a>
+        <a href="#" onclick="showHelp()">Como usar</a>
+        <a href="#" onclick="toggleMusic()">Controle de música</a>
       </div>
       <div>
-        © 2024 Magnet2URL - Sem rastreamento, sem coleta de dados
+        Magnet2URL © 2024 • Tecnologia segura e transparente
       </div>
     </footer>
 
     <!-- Sidebar -->
     <aside class="sidebar">
       <div class="tutorial-section hidden" id="tutorialSection">
-        <h3>Solução de Problemas</h3>
+        <h3 class="section-title">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2M12.5,17H11V13.5H7V12H11V7H12.5V12H17V13.5H12.5V17Z"/>
+          </svg>
+          Guia de Solução
+        </h3>
         <div class="step">
           <div class="step-number">1</div>
           <div class="step-content">
-            <h4>Instale um Cliente</h4>
-            <p>Baixe e instale o <a href="https://www.fosshub.com/qBittorrent.html" target="_blank" style="color: var(--accent-secondary);">qBittorrent (Windows 64-bit)</a>.</p>
+            <h4>Instalação do Cliente</h4>
+            <p>Baixe e instale um cliente de torrent como o <a href="https://www.fosshub.com/qBittorrent.html" target="_blank">qBittorrent</a>.</p>
           </div>
         </div>
         <div class="step">
           <div class="step-number">2</div>
           <div class="step-content">
-            <h4>Configure como Padrão</h4>
-            <p>Permita que seja o padrão para .torrent e Magnet Links.</p>
+            <h4>Configuração</h4>
+            <p>Durante a instalação, marque a opção para tornar o programa padrão para links magnet.</p>
           </div>
         </div>
         <div class="step">
           <div class="step-number">3</div>
           <div class="step-content">
-            <h4>Tente Novamente</h4>
-            <p>Retorne e clique em "Tentar Novamente".</p>
+            <h4>Retorno e Tentativa</h4>
+            <p>Volte a esta página e clique em "Tentar Novamente" para iniciar o download.</p>
           </div>
         </div>
       </div>
 
       <div class="music-player hidden" id="musicPlayer">
-        <h3>
+        <h3 class="section-title">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12,3V12.26C11.5,12.09 11,12 10.5,12C7.46,12 5,14.46 5,17.5C5,20.54 7.46,23 10.5,23C13.54,23 16,20.54 16,17.5V6H19V3H12Z"/>
           </svg>
-          Música de Fundo
+          Player Musical
         </h3>
         <div class="music-controls">
           <button class="music-btn" onclick="toggleMusic()" id="musicToggle">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <svg viewBox="0 0 24 24">
               <path d="M8,5.14V19.14L19,12.14L8,5.14Z"/>
             </svg>
-            Play/Pause
+            Reproduzir Música
           </button>
-          <div class="visualizer" id="visualizer"></div>
+          <div class="visualizer-container">
+            <div class="visualizer" id="visualizer"></div>
+          </div>
         </div>
       </div>
     </aside>
@@ -664,20 +855,20 @@
         audio.play();
         isMusicPlaying = true;
         document.getElementById('musicToggle').innerHTML = `
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <svg viewBox="0 0 24 24">
             <path d="M14,19H18V5H14M6,19H10V5H6V19Z"/>
           </svg>
-          Pausar
+          Pausar Música
         `;
         if (!context) setupAudioVisualizer();
       } else {
         audio.pause();
         isMusicPlaying = false;
         document.getElementById('musicToggle').innerHTML = `
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <svg viewBox="0 0 24 24">
             <path d="M8,5.14V19.14L19,12.14L8,5.14Z"/>
           </svg>
-          Play
+          Reproduzir Música
         `;
       }
     }
@@ -690,17 +881,19 @@
         source.connect(analyser);
         analyser.connect(context.destination);
         
+        // Configurar analyser
+        analyser.fftSize = 256;
+        const bufferLength = analyser.frequencyBinCount;
+        
         // Criar barras do visualizador
         const visualizer = document.getElementById('visualizer');
         visualizer.innerHTML = '';
         visualizerBars = [];
         
-        const barCount = 24;
+        const barCount = 16;
         for (let i = 0; i < barCount; i++) {
           const bar = document.createElement('div');
           bar.className = 'visualizer-bar';
-          bar.style.left = `${(i / barCount) * 100}%`;
-          bar.style.animationDelay = `${i * 0.05}s`;
           visualizer.appendChild(bar);
           visualizerBars.push(bar);
         }
@@ -721,18 +914,18 @@
       // Atualizar barras do visualizador
       visualizerBars.forEach((bar, i) => {
         const value = dataArray[Math.floor(i * bufferLength / visualizerBars.length)];
-        const height = 20 + (value / 255) * 60;
+        const height = 10 + (value / 255) * 80;
         bar.style.height = `${height}%`;
-        bar.style.opacity = 0.5 + (value / 255) * 0.5;
+        bar.style.opacity = 0.4 + (value / 255) * 0.6;
       });
       
       // Animar Regirako com a música
       if (regirakoImg) {
         const average = dataArray.reduce((a, b) => a + b, 0) / bufferLength;
-        const scale = 1 + (average / 512) * 0.2;
-        const rotation = (average / 100) * 5;
+        const scale = 1 + (average / 512) * 0.15;
+        const rotation = (average / 100) * 3;
         regirakoImg.style.transform = `scale(${scale}) rotate(${rotation}deg)`;
-        regirakoImg.style.opacity = 0.1 + (average / 1024);
+        regirakoImg.style.opacity = 0.05 + (average / 1024);
       }
       
       requestAnimationFrame(animateVisualizer);
@@ -747,50 +940,65 @@
     function showTutorial() {
       document.getElementById('tutorialSection').classList.remove('hidden');
       document.getElementById('musicPlayer').classList.remove('hidden');
+      document.getElementById('tutorialSection').classList.add('fade-in');
+      document.getElementById('musicPlayer').classList.add('fade-in');
     }
 
     function showHelp() {
-      alert("Para usar o Magnet2URL:\n\n1. Adicione um link magnet à URL após o #\n2. Exemplo: https://seusite.com/#magnet:?xt=...\n3. A página redirecionará automaticamente\n\nCaso não funcione, siga as instruções na barra lateral.");
+      alert("COMO USAR MAGNET2URL\n\n" +
+            "1. Obtenha um link magnet (começa com 'magnet:?')\n" +
+            "2. Adicione ao final da URL após #\n" +
+            "   Exemplo: https://seusite.com/#magnet:?xt=...\n" +
+            "3. A página redirecionará automaticamente\n" +
+            "4. Se não funcionar, siga o guia na barra lateral");
+      return false;
     }
 
     function updateStatusCard(title, description, showSpinner = false, showButton = false) {
-      const statusCard = document.getElementById('statusCard');
+      const statusSection = document.getElementById('statusSection');
+      const statusContent = document.getElementById('statusContent');
+      
+      // Reset classes
+      statusSection.className = 'status-section fade-in';
+      
       let content = `
-        <div class="status-icon">
-          <svg viewBox="0 0 24 24" fill="currentColor">
+        <div class="status-icon-container">
+          <svg class="status-icon" viewBox="0 0 24 24">
             <path d="M10,17L5,12L6.41,10.58L10,14.17L17.59,6.58L19,8M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2Z"/>
           </svg>
         </div>
-        <h2 class="status-title">${title}</h2>
-        <p class="status-description">${description}</p>
+        <div class="status-text">
+          <h1 class="status-title">${title}</h1>
+          <p class="status-description">${description}</p>
+        </div>
       `;
       
       if (showSpinner) {
         content += '<div class="spinner"></div>';
+        statusSection.classList.add('status-success');
       }
       
       if (showButton) {
         content += `
-          <div class="button-group">
+          <div class="status-actions">
             <button class="btn btn-primary" onclick="redirecionar()">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M14,12L10,8V11H2V13H10V16M20,18V6C20,4.89 19.1,4 18,4H6A2,2 0 0,0 4,6V9H6V6H18V18H6V15H4V18A2,2 0 0,0 6,20H18A2,2 0 0,0 20,18Z"/>
               </svg>
               Tentar Novamente
             </button>
+            <button class="btn btn-secondary" onclick="showHelp()">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M15.07,11.25L14.17,12.17C13.45,12.89 13,13.5 13,15H11V14.5C11,13.39 11.45,12.39 12.17,11.67L13.41,10.41C13.78,10.05 14,9.55 14,9C14,7.89 13.1,7 12,7A2,2 0 0,0 10,9H8A4,4 0 0,1 12,5A4,4 0 0,1 16,9C16,9.88 15.64,10.67 15.07,11.25M13,19H11V17H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2Z"/>
+              </svg>
+              Ajuda
+            </button>
           </div>
         `;
+        statusSection.classList.add('status-error');
       }
       
-      statusCard.innerHTML = content;
-      
-      // Aplicar classes de status
-      statusCard.classList.remove('status-success', 'status-error');
-      if (title.includes('Redirecionando')) {
-        statusCard.classList.add('status-success');
-      } else if (title.includes('Falhou')) {
-        statusCard.classList.add('status-error');
-      }
+      statusContent.innerHTML = content;
     }
 
     window.onload = () => {
@@ -811,8 +1019,8 @@
         // Segunda tela: Mostrar tutorial se não redirecionou
         setTimeout(() => {
           updateStatusCard(
-            'Redirecionamento Falhou',
-            'Não foi possível iniciar o cliente de torrent automaticamente. Siga as instruções na barra lateral.',
+            'Redirecionamento Não Efetuado',
+            'O cliente de torrent não foi iniciado automaticamente. Siga as instruções na barla lateral para configurar.',
             false,
             true
           );
@@ -823,17 +1031,17 @@
           const musicSrc = getRandomMusic();
           audio = document.getElementById('bg-audio');
           audio.src = musicSrc;
-          audio.volume = 0.5;
+          audio.volume = 0.4;
           
-          // Iniciar música automaticamente
+          // Iniciar música automaticamente após 500ms
           setTimeout(() => {
             audio.play().then(() => {
               isMusicPlaying = true;
               document.getElementById('musicToggle').innerHTML = `
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <svg viewBox="0 0 24 24">
                   <path d="M14,19H18V5H14M6,19H10V5H6V19Z"/>
                 </svg>
-                Pausar
+                Pausar Música
               `;
               if (!context) setupAudioVisualizer();
             }).catch(e => {
@@ -845,45 +1053,37 @@
       } else {
         // Página inicial (sem link magnet)
         updateStatusCard(
-          'Aguardando Link Magnet',
-          'Adicione um link magnet à URL após o # para iniciar o download',
+          'Pronto para Redirecionar',
+          'Adicione um link magnet à URL para iniciar o download automaticamente',
           false
         );
         
-        // Mostrar exemplo de uso
-        const statusCard = document.getElementById('statusCard');
+        // Adicionar exemplo de uso
         const example = document.createElement('div');
-        example.style.marginTop = '30px';
-        example.style.padding = '20px';
-        example.style.background = 'rgba(42, 42, 42, 0.5)';
-        example.style.borderRadius = '12px';
-        example.style.border = '1px dashed var(--border-color)';
+        example.className = 'code-example';
         example.innerHTML = `
-          <p style="color: var(--text-secondary); margin-bottom: 10px;">Exemplo de uso:</p>
-          <code style="color: var(--accent-secondary); font-family: monospace; font-size: 0.9rem; background: rgba(0,0,0,0.3); padding: 8px 12px; border-radius: 6px; display: block;">
-            https://seusite.com/#magnet:?xt=urn:btih:...
-          </code>
+          <p style="color: var(--text-secondary); margin-bottom: 10px; font-size: 0.9rem;">Exemplo de URL com link magnet:</p>
+          <code>https://seusite.com/#magnet:?xt=urn:btih:EXEMPLO123456789...</code>
         `;
-        statusCard.appendChild(example);
+        document.getElementById('statusContent').appendChild(example);
       }
       
-      // Ajustar escala para 1920x1080
-      const isFullHD = window.innerWidth === 1920 && window.innerHeight === 1080;
-      if (!isFullHD) {
+      // Ajustar escala se não estiver em 1920x1080
+      if (window.innerWidth !== 1920 || window.innerHeight !== 1080) {
         const scale = Math.min(
           window.innerWidth / 1920,
           window.innerHeight / 1080
-        ) * 0.9;
+        ) * 0.92;
         document.querySelector('.container').style.transform = `scale(${scale})`;
       }
     };
 
-    // Ajustar na redimensionamento
+    // Ajustar na redimensionamento da janela
     window.addEventListener('resize', () => {
       const scale = Math.min(
         window.innerWidth / 1920,
         window.innerHeight / 1080
-      ) * 0.9;
+      ) * 0.92;
       document.querySelector('.container').style.transform = `scale(${scale})`;
     });
   </script>
