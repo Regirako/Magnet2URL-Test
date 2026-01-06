@@ -13,16 +13,18 @@
   
   <style>
     :root {
-      --bg-primary: #0a1f0a;
-      --bg-secondary: #112211;
-      --bg-card: #1a331a;
-      --border-color: #2d4a2d;
-      --accent-green: #2ecc71;
-      --accent-green-dark: #27ae60;
-      --text-primary: #e8f5e9;
-      --text-secondary: #a5d6a7;
-      --gradient-primary: linear-gradient(135deg, #1a331a 0%, #0a1f0a 100%);
-      --gradient-accent: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #121212;
+      --bg-card: #1a1a1a;
+      --border-color: #2a2a2a;
+      --accent-primary: #ffffff;
+      --accent-secondary: #cccccc;
+      --text-primary: #ffffff;
+      --text-secondary: #aaaaaa;
+      --text-tertiary: #888888;
+      --gradient-primary: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+      --gradient-accent: linear-gradient(135deg, #333333 0%, #666666 100%);
+      --accent-glow: 0 0 20px rgba(255, 255, 255, 0.1);
     }
 
     * {
@@ -31,135 +33,144 @@
       box-sizing: border-box;
     }
 
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       background: var(--bg-primary);
       color: var(--text-primary);
-      min-height: 100vh;
       line-height: 1.6;
-      overflow-x: hidden;
       position: relative;
-    }
-
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: 
-        radial-gradient(circle at 20% 80%, rgba(46, 204, 113, 0.05) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(39, 174, 96, 0.05) 0%, transparent 50%);
-      pointer-events: none;
-      z-index: -1;
+      height: 100vh;
+      width: 100vw;
     }
 
     .container {
-      max-width: 1200px;
+      width: 1920px;
+      height: 1080px;
       margin: 0 auto;
-      padding: 2rem;
+      padding: 40px;
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      grid-template-rows: 80px 1fr 200px;
+      gap: 30px;
+      grid-template-areas: 
+        "header sidebar"
+        "main sidebar"
+        "footer sidebar";
     }
 
+    /* Header */
     .header {
+      grid-area: header;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 2rem 0;
+      padding: 0 20px;
       border-bottom: 1px solid var(--border-color);
-      margin-bottom: 3rem;
     }
 
     .logo {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: 15px;
     }
 
-    .logo h1 {
+    .logo-icon {
+      width: 50px;
+      height: 50px;
+      background: var(--gradient-accent);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: var(--text-primary);
+      box-shadow: var(--accent-glow);
+    }
+
+    .logo-text {
       font-size: 1.8rem;
       font-weight: 700;
-      background: var(--gradient-accent);
+      background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
 
-    .logo-icon {
-      width: 40px;
-      height: 40px;
-      background: var(--gradient-accent);
-      border-radius: 10px;
+    .security-badge {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 10px 20px;
+      font-size: 0.9rem;
+      color: var(--accent-secondary);
       display: flex;
       align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      font-size: 1.2rem;
-      color: var(--bg-primary);
+      gap: 10px;
+      box-shadow: var(--accent-glow);
     }
 
+    /* Main Content */
     .main-content {
+      grid-area: main;
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-
-    @media (min-width: 768px) {
-      .main-content {
-        grid-template-columns: 3fr 2fr;
-      }
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      height: 100%;
     }
 
     .status-card {
       background: var(--gradient-primary);
       border: 1px solid var(--border-color);
-      border-radius: 16px;
-      padding: 2.5rem;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      border-radius: 20px;
+      padding: 50px;
       position: relative;
       overflow: hidden;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      box-shadow: var(--accent-glow);
+      transition: all 0.3s ease;
     }
 
     .status-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
-    }
-
-    .status-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: var(--gradient-accent);
+      border-color: #444444;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.15);
     }
 
     .status-icon {
-      width: 80px;
-      height: 80px;
+      width: 120px;
+      height: 120px;
       background: var(--bg-card);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 2rem;
-      border: 3px solid var(--accent-green);
+      margin-bottom: 40px;
+      border: 3px solid var(--border-color);
+      box-shadow: var(--accent-glow);
     }
 
     .status-icon svg {
-      width: 40px;
-      height: 40px;
-      fill: var(--accent-green);
+      width: 60px;
+      height: 60px;
+      fill: var(--accent-secondary);
     }
 
     .status-title {
-      font-size: 1.8rem;
-      font-weight: 600;
+      font-size: 2.5rem;
+      font-weight: 700;
       text-align: center;
-      margin-bottom: 1rem;
-      background: linear-gradient(135deg, var(--accent-green), var(--accent-green-dark));
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -168,28 +179,21 @@
     .status-description {
       color: var(--text-secondary);
       text-align: center;
-      margin-bottom: 2rem;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
+      margin-bottom: 40px;
+      max-width: 600px;
     }
 
     .button-group {
       display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-
-    @media (min-width: 480px) {
-      .button-group {
-        flex-direction: row;
-        justify-content: center;
-      }
+      gap: 20px;
+      margin-top: 30px;
     }
 
     .btn {
-      padding: 1rem 2rem;
-      border-radius: 10px;
-      font-size: 1rem;
+      padding: 18px 36px;
+      border-radius: 12px;
+      font-size: 1.1rem;
       font-weight: 600;
       text-decoration: none;
       border: none;
@@ -198,107 +202,200 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 0.5rem;
-      min-width: 200px;
+      gap: 12px;
+      min-width: 220px;
+      box-shadow: var(--accent-glow);
     }
 
     .btn-primary {
       background: var(--gradient-accent);
-      color: var(--bg-primary);
+      color: var(--text-primary);
     }
 
     .btn-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 10px 20px rgba(46, 204, 113, 0.3);
+      box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
     }
 
     .btn-secondary {
       background: transparent;
-      color: var(--accent-green);
+      color: var(--accent-secondary);
       border: 2px solid var(--border-color);
     }
 
     .btn-secondary:hover {
-      border-color: var(--accent-green);
+      border-color: #444444;
       transform: translateY(-2px);
     }
 
-    .info-cards {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
+    /* Info Cards Grid */
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(3, 1fr);
+      gap: 20px;
+      height: 100%;
     }
 
     .info-card {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 1.5rem;
+      border-radius: 16px;
+      padding: 30px;
       transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      box-shadow: var(--accent-glow);
     }
 
     .info-card:hover {
-      border-color: var(--accent-green);
-      transform: translateX(4px);
+      border-color: #444444;
+      transform: translateX(5px);
     }
 
     .info-card h3 {
-      color: var(--accent-green);
-      font-size: 1.1rem;
-      margin-bottom: 0.5rem;
+      color: var(--accent-secondary);
+      font-size: 1.3rem;
+      margin-bottom: 15px;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 12px;
     }
 
     .info-card p {
-      color: var(--text-secondary);
+      color: var(--text-tertiary);
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      grid-area: sidebar;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      padding: 30px;
+      background: var(--bg-secondary);
+      border-radius: 20px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--accent-glow);
+    }
+
+    .tutorial-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 30px;
+      flex: 1;
+      box-shadow: var(--accent-glow);
+    }
+
+    .tutorial-section h3 {
+      color: var(--accent-secondary);
+      font-size: 1.4rem;
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .step {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .step:last-child {
+      margin-bottom: 0;
+    }
+
+    .step-number {
+      width: 36px;
+      height: 36px;
+      background: var(--gradient-accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: var(--text-primary);
+      flex-shrink: 0;
+      font-size: 1.1rem;
+    }
+
+    .step-content h4 {
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      font-size: 1.1rem;
+    }
+
+    .step-content p {
+      color: var(--text-tertiary);
       font-size: 0.95rem;
+      line-height: 1.5;
     }
 
     .music-player {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 1.5rem;
-      margin-top: 2rem;
+      border-radius: 16px;
+      padding: 25px;
+      box-shadow: var(--accent-glow);
+    }
+
+    .music-player h3 {
+      color: var(--accent-secondary);
+      font-size: 1.3rem;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
     .music-controls {
       display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-top: 1rem;
+      flex-direction: column;
+      gap: 20px;
     }
 
     .music-btn {
-      background: transparent;
-      border: 2px solid var(--accent-green);
-      color: var(--accent-green);
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
+      background: var(--gradient-accent);
+      border: none;
+      color: var(--text-primary);
+      padding: 15px 25px;
+      border-radius: 10px;
       cursor: pointer;
       transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      box-shadow: var(--accent-glow);
     }
 
     .music-btn:hover {
-      background: var(--accent-green);
-      color: var(--bg-primary);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(255, 255, 255, 0.15);
     }
 
     .visualizer {
       width: 100%;
       height: 80px;
-      margin-top: 1rem;
       position: relative;
+      background: var(--bg-secondary);
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
     }
 
     .visualizer-bar {
       position: absolute;
       bottom: 0;
-      width: 4px;
+      width: 6px;
       background: var(--gradient-accent);
-      border-radius: 2px 2px 0 0;
+      border-radius: 3px 3px 0 0;
       animation: visualizer 1s ease-in-out infinite alternate;
     }
 
@@ -307,42 +404,42 @@
       to { height: 100%; }
     }
 
+    /* Footer */
     .footer {
-      margin-top: 4rem;
-      padding: 2rem 0;
+      grid-area: footer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
       border-top: 1px solid var(--border-color);
-      text-align: center;
-      color: var(--text-secondary);
+      color: var(--text-tertiary);
       font-size: 0.9rem;
     }
 
+    .footer-links {
+      display: flex;
+      gap: 30px;
+    }
+
     .footer a {
-      color: var(--accent-green);
+      color: var(--accent-secondary);
       text-decoration: none;
+      transition: color 0.3s ease;
     }
 
     .footer a:hover {
-      text-decoration: underline;
+      color: var(--text-primary);
     }
 
-    .pulse {
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0% { opacity: 0.6; }
-      50% { opacity: 1; }
-      100% { opacity: 0.6; }
-    }
-
+    /* Animations */
     .spinner {
-      width: 50px;
-      height: 50px;
+      width: 70px;
+      height: 70px;
       border: 4px solid var(--border-color);
-      border-top: 4px solid var(--accent-green);
+      border-top: 4px solid var(--accent-secondary);
       border-radius: 50%;
       animation: spin 1s linear infinite;
-      margin: 2rem auto;
+      margin: 30px auto;
     }
 
     @keyframes spin {
@@ -351,14 +448,14 @@
     }
 
     .regirako-container {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      width: 150px;
-      height: 150px;
-      opacity: 0.15;
-      z-index: -1;
+      position: absolute;
+      bottom: 40px;
+      right: 40px;
+      width: 180px;
+      height: 180px;
+      opacity: 0.2;
       pointer-events: none;
+      z-index: 1;
     }
 
     .regirako-container img {
@@ -372,91 +469,69 @@
       display: none;
     }
 
-    .security-badge {
-      position: absolute;
-      top: 1.5rem;
-      right: 1.5rem;
-      background: var(--bg-card);
-      border: 1px solid var(--accent-green);
-      border-radius: 8px;
-      padding: 0.5rem 1rem;
-      font-size: 0.8rem;
-      color: var(--accent-green);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
+    /* Responsive adjustments for 1920x1080 */
+    @media (max-width: 1920px) and (max-height: 1080px) {
+      .container {
+        transform: scale(0.95);
+        transform-origin: center;
+      }
     }
 
-    .tutorial-steps {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 2rem;
-      margin-top: 2rem;
+    /* Utility classes */
+    .pulse {
+      animation: pulse 2s infinite;
     }
 
-    .step {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-      padding-bottom: 1.5rem;
-      border-bottom: 1px solid var(--border-color);
+    @keyframes pulse {
+      0% { opacity: 0.6; }
+      50% { opacity: 1; }
+      100% { opacity: 0.6; }
     }
 
-    .step:last-child {
-      border-bottom: none;
-      margin-bottom: 0;
-      padding-bottom: 0;
+    .glow {
+      filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
     }
 
-    .step-number {
-      width: 32px;
-      height: 32px;
-      background: var(--gradient-accent);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      color: var(--bg-primary);
-      flex-shrink: 0;
+    /* Status indicators */
+    .status-success {
+      border-color: #444444 !important;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.1) !important;
     }
 
-    .step-content h4 {
-      color: var(--accent-green);
-      margin-bottom: 0.5rem;
-    }
-
-    .step-content p {
-      color: var(--text-secondary);
-      font-size: 0.95rem;
+    .status-error {
+      border-color: #444444 !important;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.1) !important;
     }
   </style>
 </head>
 <body>
   <div class="container">
+    <!-- Header -->
     <header class="header">
       <div class="logo">
         <div class="logo-icon">M2U</div>
-        <h1>Magnet2URL</h1>
+        <div class="logo-text">Magnet2URL</div>
       </div>
       <div class="security-badge">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
           <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.1,7 14,7.9 14,9C14,10.1 13.1,11 12,11C10.9,11 10,10.1 10,9C10,7.9 10.9,7 12,7M18,14.66C18,15.5 17.75,16.31 17.31,17H6.69C6.25,16.31 6,15.5 6,14.66V10.34C6,9.5 6.25,8.69 6.69,8H17.31C17.75,8.69 18,9.5 18,10.34V14.66Z"/>
         </svg>
         Open Source & Secure
       </div>
     </header>
 
-    <div class="main-content">
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Left Column: Status Card -->
       <div class="status-card" id="statusCard">
         <!-- Conteúdo será preenchido pelo JavaScript -->
       </div>
 
-      <div class="info-cards">
+      <!-- Right Column: Info Cards -->
+      <div class="info-grid">
         <div class="info-card">
           <h3>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1Z"/>
             </svg>
             Segurança Garantida
@@ -466,7 +541,7 @@
 
         <div class="info-card">
           <h3>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
               <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
             </svg>
             Código Aberto
@@ -476,67 +551,81 @@
 
         <div class="info-card">
           <h3>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12,15A2,2 0 0,1 10,13C10,11.89 10.9,11 12,11A2,2 0 0,1 14,13A2,2 0 0,1 12,15M7,7C7,5.89 7.89,5 9,5A2,2 0 0,1 11,7A2,2 0 0,1 9,9C7.89,9 7,8.1 7,7M12,2C8.43,2 5.23,3.54 3,6L12,22L21,6C18.78,3.54 15.57,2 12,2Z"/>
             </svg>
             Compatível
           </h3>
-          <p>Funciona com qualquer cliente de torrent que suporte links magnet (qBittorrent, μTorrent, etc).</p>
+          <p>Funciona com qualquer cliente de torrent que suporte links magnet.</p>
         </div>
       </div>
-    </div>
+    </main>
 
-    <div class="tutorial-steps hidden" id="tutorialSection">
-      <h3 style="color: var(--accent-green); margin-bottom: 1.5rem; font-size: 1.3rem;">Solução de Problemas</h3>
-      <div class="step">
-        <div class="step-number">1</div>
-        <div class="step-content">
-          <h4>Instale um Cliente de Torrent</h4>
-          <p>Baixe e instale o <a href="https://www.fosshub.com/qBittorrent.html" target="_blank" style="color: var(--accent-green);">qBittorrent (Windows 64-bit)</a> ou outro cliente de sua preferência.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-number">2</div>
-        <div class="step-content">
-          <h4>Configure como Padrão</h4>
-          <p>Durante a instalação, permita que o programa seja o padrão para arquivos .torrent e Magnet Links.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-number">3</div>
-        <div class="step-content">
-          <h4>Tente Novamente</h4>
-          <p>Retorne a esta página e clique no botão "Tentar Novamente" para iniciar o download.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="music-player hidden" id="musicPlayer">
-      <div>
-        <h3 style="color: var(--accent-green); margin-bottom: 0.5rem;">Música de Fundo</h3>
-        <p style="color: var(--text-secondary); font-size: 0.9rem;">Reprodução aleatória de uma das nossas faixas</p>
-      </div>
-      <div class="music-controls">
-        <button class="music-btn" onclick="toggleMusic()" id="musicToggle">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 0.5rem;">
-            <path d="M8,5.14V19.14L19,12.14L8,5.14Z"/>
-          </svg>
-          Play/Pause
-        </button>
-        <div class="visualizer" id="visualizer"></div>
-      </div>
-    </div>
-
+    <!-- Footer -->
     <footer class="footer">
-      <p>© 2024 Magnet2URL - Um projeto <a href="https://github.com/Regirako/Magnet2URL" target="_blank">open-source</a></p>
-      <p style="margin-top: 0.5rem; font-size: 0.8rem;">Segurança e privacidade em primeiro lugar. Sem rastreamento, sem coleta de dados.</p>
+      <div class="footer-links">
+        <a href="https://github.com/Regirako/Magnet2URL" target="_blank">GitHub</a>
+        <a href="https://github.com/Regirako" target="_blank">Autor</a>
+        <a href="#" onclick="showHelp()">Ajuda</a>
+      </div>
+      <div>
+        © 2024 Magnet2URL - Sem rastreamento, sem coleta de dados
+      </div>
     </footer>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="tutorial-section hidden" id="tutorialSection">
+        <h3>Solução de Problemas</h3>
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h4>Instale um Cliente</h4>
+            <p>Baixe e instale o <a href="https://www.fosshub.com/qBittorrent.html" target="_blank" style="color: var(--accent-secondary);">qBittorrent (Windows 64-bit)</a>.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h4>Configure como Padrão</h4>
+            <p>Permita que seja o padrão para .torrent e Magnet Links.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h4>Tente Novamente</h4>
+            <p>Retorne e clique em "Tentar Novamente".</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="music-player hidden" id="musicPlayer">
+        <h3>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12,3V12.26C11.5,12.09 11,12 10.5,12C7.46,12 5,14.46 5,17.5C5,20.54 7.46,23 10.5,23C13.54,23 16,20.54 16,17.5V6H19V3H12Z"/>
+          </svg>
+          Música de Fundo
+        </h3>
+        <div class="music-controls">
+          <button class="music-btn" onclick="toggleMusic()" id="musicToggle">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8,5.14V19.14L19,12.14L8,5.14Z"/>
+            </svg>
+            Play/Pause
+          </button>
+          <div class="visualizer" id="visualizer"></div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Regirako Container -->
+    <div class="regirako-container">
+      <img src="assets/regirako.png" alt="Regirako" id="regirakoImg">
+    </div>
   </div>
 
-  <div class="regirako-container" id="regirakoContainer">
-    <img src="assets/regirako.png" alt="Regirako" id="regirakoImg">
-  </div>
-
+  <!-- Audio Element -->
   <audio id="bg-audio" loop>
     <source src="" type="audio/mpeg">
     Seu navegador não suporta o elemento de áudio.
@@ -575,7 +664,7 @@
         audio.play();
         isMusicPlaying = true;
         document.getElementById('musicToggle').innerHTML = `
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 0.5rem;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
             <path d="M14,19H18V5H14M6,19H10V5H6V19Z"/>
           </svg>
           Pausar
@@ -585,7 +674,7 @@
         audio.pause();
         isMusicPlaying = false;
         document.getElementById('musicToggle').innerHTML = `
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 0.5rem;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
             <path d="M8,5.14V19.14L19,12.14L8,5.14Z"/>
           </svg>
           Play
@@ -606,7 +695,7 @@
         visualizer.innerHTML = '';
         visualizerBars = [];
         
-        const barCount = 32;
+        const barCount = 24;
         for (let i = 0; i < barCount; i++) {
           const bar = document.createElement('div');
           bar.className = 'visualizer-bar';
@@ -634,13 +723,16 @@
         const value = dataArray[Math.floor(i * bufferLength / visualizerBars.length)];
         const height = 20 + (value / 255) * 60;
         bar.style.height = `${height}%`;
+        bar.style.opacity = 0.5 + (value / 255) * 0.5;
       });
       
       // Animar Regirako com a música
       if (regirakoImg) {
         const average = dataArray.reduce((a, b) => a + b, 0) / bufferLength;
-        const scale = 1 + (average / 512) * 0.3;
-        regirakoImg.style.transform = `scale(${scale}) rotate(${average / 20}deg)`;
+        const scale = 1 + (average / 512) * 0.2;
+        const rotation = (average / 100) * 5;
+        regirakoImg.style.transform = `scale(${scale}) rotate(${rotation}deg)`;
+        regirakoImg.style.opacity = 0.1 + (average / 1024);
       }
       
       requestAnimationFrame(animateVisualizer);
@@ -655,6 +747,10 @@
     function showTutorial() {
       document.getElementById('tutorialSection').classList.remove('hidden');
       document.getElementById('musicPlayer').classList.remove('hidden');
+    }
+
+    function showHelp() {
+      alert("Para usar o Magnet2URL:\n\n1. Adicione um link magnet à URL após o #\n2. Exemplo: https://seusite.com/#magnet:?xt=...\n3. A página redirecionará automaticamente\n\nCaso não funcione, siga as instruções na barra lateral.");
     }
 
     function updateStatusCard(title, description, showSpinner = false, showButton = false) {
@@ -677,7 +773,7 @@
         content += `
           <div class="button-group">
             <button class="btn btn-primary" onclick="redirecionar()">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M14,12L10,8V11H2V13H10V16M20,18V6C20,4.89 19.1,4 18,4H6A2,2 0 0,0 4,6V9H6V6H18V18H6V15H4V18A2,2 0 0,0 6,20H18A2,2 0 0,0 20,18Z"/>
               </svg>
               Tentar Novamente
@@ -687,6 +783,14 @@
       }
       
       statusCard.innerHTML = content;
+      
+      // Aplicar classes de status
+      statusCard.classList.remove('status-success', 'status-error');
+      if (title.includes('Redirecionando')) {
+        statusCard.classList.add('status-success');
+      } else if (title.includes('Falhou')) {
+        statusCard.classList.add('status-error');
+      }
     }
 
     window.onload = () => {
@@ -708,7 +812,7 @@
         setTimeout(() => {
           updateStatusCard(
             'Redirecionamento Falhou',
-            'Não foi possível iniciar o cliente de torrent automaticamente',
+            'Não foi possível iniciar o cliente de torrent automaticamente. Siga as instruções na barra lateral.',
             false,
             true
           );
@@ -719,14 +823,14 @@
           const musicSrc = getRandomMusic();
           audio = document.getElementById('bg-audio');
           audio.src = musicSrc;
-          audio.volume = 0.7;
+          audio.volume = 0.5;
           
           // Iniciar música automaticamente
           setTimeout(() => {
             audio.play().then(() => {
               isMusicPlaying = true;
               document.getElementById('musicToggle').innerHTML = `
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 0.5rem;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M14,19H18V5H14M6,19H10V5H6V19Z"/>
                 </svg>
                 Pausar
@@ -735,32 +839,53 @@
             }).catch(e => {
               console.log('Reprodução automática bloqueada:', e);
             });
-          }, 1000);
+          }, 500);
         }, 3000);
 
       } else {
         // Página inicial (sem link magnet)
         updateStatusCard(
-          'Pronto para Redirecionar',
-          'Cole um link magnet na URL após o # para iniciar o download',
+          'Aguardando Link Magnet',
+          'Adicione um link magnet à URL após o # para iniciar o download',
           false
         );
         
-        // Exibir exemplo de uso
+        // Mostrar exemplo de uso
         const statusCard = document.getElementById('statusCard');
-        statusCard.innerHTML += `
-          <div class="tutorial-steps" style="margin-top: 2rem; background: transparent; border: 1px dashed var(--border-color);">
-            <div class="step">
-              <div class="step-number">?</div>
-              <div class="step-content">
-                <h4>Como Usar</h4>
-                <p>Adicione seu link magnet à URL: <code style="background: var(--bg-primary); padding: 2px 6px; border-radius: 4px; font-family: monospace;">https://seusite.com/#magnet:?xt=...</code></p>
-              </div>
-            </div>
-          </div>
+        const example = document.createElement('div');
+        example.style.marginTop = '30px';
+        example.style.padding = '20px';
+        example.style.background = 'rgba(42, 42, 42, 0.5)';
+        example.style.borderRadius = '12px';
+        example.style.border = '1px dashed var(--border-color)';
+        example.innerHTML = `
+          <p style="color: var(--text-secondary); margin-bottom: 10px;">Exemplo de uso:</p>
+          <code style="color: var(--accent-secondary); font-family: monospace; font-size: 0.9rem; background: rgba(0,0,0,0.3); padding: 8px 12px; border-radius: 6px; display: block;">
+            https://seusite.com/#magnet:?xt=urn:btih:...
+          </code>
         `;
+        statusCard.appendChild(example);
+      }
+      
+      // Ajustar escala para 1920x1080
+      const isFullHD = window.innerWidth === 1920 && window.innerHeight === 1080;
+      if (!isFullHD) {
+        const scale = Math.min(
+          window.innerWidth / 1920,
+          window.innerHeight / 1080
+        ) * 0.9;
+        document.querySelector('.container').style.transform = `scale(${scale})`;
       }
     };
+
+    // Ajustar na redimensionamento
+    window.addEventListener('resize', () => {
+      const scale = Math.min(
+        window.innerWidth / 1920,
+        window.innerHeight / 1080
+      ) * 0.9;
+      document.querySelector('.container').style.transform = `scale(${scale})`;
+    });
   </script>
 </body>
 </html>
