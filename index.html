@@ -25,8 +25,8 @@
       --text-secondary: #ffffff;
       --text-tertiary: #ffffff;
       --gradient-primary: linear-gradient(145deg, #1a1a1a 0%, #0f0f0f 100%);
-      --gradient-accent: linear-gradient(135deg, #333333 0%, #555555 100%);
-      --accent-glow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      --gradient-accent: linear-gradient(135deg, #ff6b00 0%, #ff9500 100%);
+      --accent-glow: 0 4px 20px rgba(255, 107, 0, 0.3);
       --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     }
 
@@ -188,6 +188,12 @@
       box-shadow: var(--accent-glow);
       position: relative;
       overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .status-icon-container:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(255, 107, 0, 0.4);
     }
 
     .status-icon-container::before {
@@ -195,7 +201,7 @@
       position: absolute;
       width: 100%;
       height: 100%;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1) 0%, transparent 70%);
+      background: radial-gradient(circle at 30% 30%, rgba(255,107,0,0.1) 0%, transparent 70%);
     }
 
     .status-icon {
@@ -203,6 +209,20 @@
       height: 55px;
       fill: var(--accent-secondary);
       filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+    }
+
+    .regirako-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      transition: all 0.3s ease;
+      filter: brightness(1.1) contrast(1.1);
+    }
+
+    .regirako-icon:hover {
+      transform: rotate(5deg) scale(1.05);
+      filter: brightness(1.2) contrast(1.2) drop-shadow(0 0 15px rgba(255, 107, 0, 0.6));
     }
 
     .status-text {
@@ -279,7 +299,7 @@
 
     .btn-primary:hover {
       transform: translateY(-3px);
-      box-shadow: 0 12px 30px rgba(255, 255, 255, 0.15);
+      box-shadow: 0 12px 30px rgba(255, 107, 0, 0.4);
     }
 
     .btn-secondary {
@@ -513,7 +533,7 @@
 
     .music-btn:hover {
       transform: translateY(-3px);
-      box-shadow: 0 10px 25px rgba(255, 255, 255, 0.15);
+      box-shadow: 0 10px 25px rgba(255, 107, 0, 0.4);
     }
 
     .music-btn svg {
@@ -525,7 +545,7 @@
     .visualizer-container {
       width: 100%;
       height: 70px;
-      background: var(--bg-secondary);
+      background: linear-gradient(to bottom, #1a1a1a, #0a0a0a);
       border-radius: 8px;
       overflow: hidden;
       border: 1px solid var(--border-color);
@@ -544,10 +564,11 @@
 
     .visualizer-bar {
       width: 6px;
-      background: var(--gradient-accent);
+      background: linear-gradient(to top, #ff6b00, #ff9500, #ffaa00);
       border-radius: 4px 4px 0 0;
       transition: height 0.1s ease;
       min-height: 8px;
+      box-shadow: 0 0 8px rgba(255, 107, 0, 0.5);
     }
 
     /* Footer */
@@ -605,12 +626,12 @@
     .spinner {
       width: 60px;
       height: 60px;
-      border: 3px solid rgba(255,255,255,0.1);
-      border-top: 3px solid var(--accent-secondary);
+      border: 3px solid rgba(255,107,0,0.1);
+      border-top: 3px solid #ff6b00;
       border-radius: 50%;
       animation: spin 1s linear infinite;
       margin: 15px auto;
-      box-shadow: 0 0 20px rgba(255,255,255,0.1);
+      box-shadow: 0 0 20px rgba(255,107,0,0.2);
     }
 
     @keyframes spin {
@@ -624,11 +645,11 @@
       right: 15px;
       width: 100px;
       height: 100px;
-      opacity: 0.15;
+      opacity: 1;
       pointer-events: none;
       z-index: 10;
-      filter: grayscale(100%) contrast(120%);
-      mix-blend-mode: screen;
+      filter: brightness(1.1) contrast(1.1) saturate(1.2);
+      mix-blend-mode: normal;
     }
 
     .regirako-container img {
@@ -636,6 +657,7 @@
       height: 100%;
       object-fit: contain;
       transition: transform 0.3s ease;
+      filter: drop-shadow(0 0 10px rgba(255, 107, 0, 0.4));
     }
 
     .hidden {
@@ -783,8 +805,8 @@
 
     /* Status indicators */
     .status-success .status-icon-container {
-      border-color: rgba(255,255,255,0.2);
-      box-shadow: 0 0 25px rgba(255,255,255,0.1);
+      border-color: rgba(255,107,0,0.3);
+      box-shadow: 0 0 25px rgba(255,107,0,0.2);
     }
 
     .status-error .status-icon-container {
@@ -804,12 +826,12 @@
     }
 
     ::-webkit-scrollbar-thumb {
-      background: var(--border-light);
+      background: linear-gradient(to bottom, #ff6b00, #ff9500);
       border-radius: 4px;
     }
 
     ::-webkit-scrollbar-thumb:hover {
-      background: #444444;
+      background: linear-gradient(to bottom, #ff9500, #ffaa00);
     }
 
     /* Ensure content fits */
@@ -877,7 +899,7 @@
         <div class="info-card">
           <div class="info-card-icon">
             <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12,15A2,2 0 0,1 10,13C10,11.89 10.9,11 12,11A2,2 0 0,1 14,13A2,2 0 0,1 12,15M7,7C7,5.89 7.89,5 9,5A2,2 0 0,1 11,7A2,2 0 0,1 9,9C7.89,9 7,8.1 7,7M12,2C8.43,2 5.23,3.54 3,6L12,22L21,6C18.78,3.54 15.57,2 12,2Z"/>
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
             </svg>
           </div>
           <h3>Compatível Universal</h3>
@@ -971,6 +993,7 @@
     let regirakoImg;
     let visualizerBars = [];
     let isMusicPlaying = true;
+    let animationId = null;
 
     const musicList = [
       'assets/tokyo.mp3',
@@ -1002,6 +1025,12 @@
           </svg>
           Tocar Música
         `;
+        
+        // Para a animação quando a música pausa
+        if (animationId) {
+          cancelAnimationFrame(animationId);
+          animationId = null;
+        }
       } else {
         audio.play();
         isMusicPlaying = true;
@@ -1012,6 +1041,7 @@
           Parar Música
         `;
         if (!context) setupAudioVisualizer();
+        else animateVisualizer(); // Reinicia a animação
       }
     }
 
@@ -1046,7 +1076,14 @@
     }
 
     function animateVisualizer() {
-      if (!analyser || !isMusicPlaying) return;
+      if (!analyser || !isMusicPlaying || audio.paused) {
+        // Se a música não está tocando, para a animação
+        if (animationId) {
+          cancelAnimationFrame(animationId);
+          animationId = null;
+        }
+        return;
+      }
       
       const bufferLength = analyser.frequencyBinCount;
       const dataArray = new Uint8Array(bufferLength);
@@ -1057,6 +1094,15 @@
         const height = 15 + (value / 255) * 70;
         bar.style.height = `${height}%`;
         bar.style.opacity = 0.5 + (value / 255) * 0.5;
+        
+        // Adiciona cor gradiente dinâmica baseada na intensidade
+        const intensity = value / 255;
+        const hue = 30 + (intensity * 20); // Varia entre laranja e amarelo
+        bar.style.background = `linear-gradient(to top, 
+          hsl(${hue}, 100%, 50%), 
+          hsl(${hue + 10}, 100%, 60%), 
+          hsl(${hue + 20}, 100%, 70%))`;
+        bar.style.boxShadow = `0 0 ${8 + intensity * 8}px rgba(255, ${107 + intensity * 100}, 0, ${0.5 + intensity * 0.3})`;
       });
       
       if (regirakoImg) {
@@ -1064,10 +1110,14 @@
         const scale = 1 + (average / 512) * 0.12;
         const rotation = (average / 100) * 2;
         regirakoImg.style.transform = `scale(${scale}) rotate(${rotation}deg)`;
-        regirakoImg.style.opacity = 0.08 + (average / 1024);
+        regirakoImg.style.opacity = 0.8 + (average / 1024);
+        
+        // Efeito de brilho pulsante baseado na música
+        const pulse = 0.5 + (average / 512) * 0.5;
+        regirakoImg.style.filter = `brightness(${1 + pulse * 0.3}) contrast(1.1) saturate(1.2) drop-shadow(0 0 ${10 + average / 25}px rgba(255, 107, 0, ${0.4 + average / 512}))`;
       }
       
-      requestAnimationFrame(animateVisualizer);
+      animationId = requestAnimationFrame(animateVisualizer);
     }
 
     function createSpinner() {
@@ -1100,10 +1150,8 @@
       statusSection.className = 'status-section fade-in';
       
       let content = `
-        <div class="status-icon-container">
-          <svg class="status-icon" viewBox="0 0 24 24">
-            <path d="M10,17L5,12L6.41,10.58L10,14.17L17.59,6.58L19,8M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2Z"/>
-          </svg>
+        <div class="status-icon-container" id="statusIconContainer">
+          <img src="assets/regirako.png" alt="Regirako" class="regirako-icon" onerror="this.style.display='none'; document.getElementById('statusIconContainer').innerHTML = '<svg class=\\'status-icon\\' viewBox=\\'0 0 24 24\\'><path d=\\'M10,17L5,12L6.41,10.58L10,14.17L17.59,6.58L19,8M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2Z\\'/></svg>'">
         </div>
         <div class="status-text">
           <h1 class="status-title">${title}</h1>
