@@ -57,13 +57,16 @@
     .container {
       width: 1920px;
       height: 1080px;
-      margin: 0 auto;
-      padding: 60px 80px;
-      position: relative;
+      margin: 0;
+      padding: 30px 60px;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
       display: grid;
       grid-template-columns: 1.8fr 1fr;
       grid-template-rows: auto 1fr auto;
-      gap: 40px;
+      gap: 30px;
       grid-template-areas: 
         "header header"
         "main sidebar"
@@ -76,8 +79,9 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0 20px 30px 20px;
+      padding: 0 10px 20px 10px;
       border-bottom: 1px solid var(--border-light);
+      margin-top: -10px;
     }
 
     .logo-container {
@@ -87,15 +91,15 @@
     }
 
     .logo-icon {
-      width: 56px;
-      height: 56px;
+      width: 50px;
+      height: 50px;
       background: var(--gradient-accent);
-      border-radius: 14px;
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 700;
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       color: var(--text-primary);
       box-shadow: var(--accent-glow);
       position: relative;
@@ -119,7 +123,7 @@
     }
 
     .logo-title {
-      font-size: 2.2rem;
+      font-size: 2rem;
       font-weight: 700;
       background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
       -webkit-background-clip: text;
@@ -129,7 +133,7 @@
     }
 
     .logo-subtitle {
-      font-size: 1rem;
+      font-size: 0.9rem;
       color: var(--text-tertiary);
       font-weight: 400;
     }
@@ -137,13 +141,13 @@
     .security-badge {
       background: var(--bg-surface);
       border: 1px solid var(--border-light);
-      border-radius: 10px;
-      padding: 12px 24px;
-      font-size: 0.95rem;
+      border-radius: 8px;
+      padding: 10px 20px;
+      font-size: 0.9rem;
       color: var(--accent-secondary);
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       box-shadow: var(--accent-glow);
       transition: all 0.3s ease;
     }
@@ -159,19 +163,25 @@
       display: grid;
       grid-template-columns: 1fr;
       grid-template-rows: auto 1fr;
-      gap: 40px;
+      gap: 30px;
       height: 100%;
+      padding-top: 0;
     }
 
     .status-section {
       background: var(--gradient-primary);
       border: 1px solid var(--border-light);
-      border-radius: 24px;
-      padding: 50px;
+      border-radius: 20px;
+      padding: 40px;
       position: relative;
       overflow: hidden;
       box-shadow: var(--card-shadow);
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      height: 380px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: -10px;
     }
 
     .status-section:hover {
@@ -190,14 +200,14 @@
     }
 
     .status-icon-container {
-      width: 140px;
-      height: 140px;
+      width: 120px;
+      height: 120px;
       background: var(--bg-surface);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
       border: 1px solid var(--border-light);
       box-shadow: var(--accent-glow);
       position: relative;
@@ -213,8 +223,8 @@
     }
 
     .status-icon {
-      width: 70px;
-      height: 70px;
+      width: 60px;
+      height: 60px;
       fill: var(--accent-secondary);
       filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
     }
@@ -224,9 +234,9 @@
     }
 
     .status-title {
-      font-size: 2.8rem;
+      font-size: 2.2rem;
       font-weight: 700;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
       background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -236,24 +246,24 @@
 
     .status-description {
       color: var(--text-secondary);
-      font-size: 1.3rem;
-      margin-bottom: 40px;
+      font-size: 1.1rem;
+      margin-bottom: 30px;
       max-width: 700px;
       margin-left: auto;
       margin-right: auto;
-      line-height: 1.6;
+      line-height: 1.5;
     }
 
     .status-actions {
       display: flex;
-      gap: 20px;
-      margin-top: 30px;
+      gap: 15px;
+      margin-top: 20px;
     }
 
     .btn {
-      padding: 18px 40px;
-      border-radius: 12px;
-      font-size: 1.1rem;
+      padding: 15px 30px;
+      border-radius: 10px;
+      font-size: 1rem;
       font-weight: 600;
       text-decoration: none;
       border: none;
@@ -262,8 +272,8 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 12px;
-      min-width: 240px;
+      gap: 10px;
+      min-width: 200px;
       box-shadow: var(--accent-glow);
       letter-spacing: 0.02em;
     }
@@ -310,15 +320,16 @@
     .info-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 30px;
+      gap: 25px;
       height: fit-content;
+      margin-top: -20px;
     }
 
     .info-card {
       background: var(--bg-surface);
       border: 1px solid var(--border-light);
-      border-radius: 20px;
-      padding: 35px 30px;
+      border-radius: 18px;
+      padding: 25px;
       transition: all 0.3s ease;
       display: flex;
       flex-direction: column;
@@ -351,35 +362,35 @@
     }
 
     .info-card-icon {
-      width: 56px;
-      height: 56px;
+      width: 50px;
+      height: 50px;
       background: var(--bg-card);
-      border-radius: 14px;
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 25px;
+      margin-bottom: 20px;
       border: 1px solid var(--border-color);
     }
 
     .info-card-icon svg {
-      width: 28px;
-      height: 28px;
+      width: 24px;
+      height: 24px;
       fill: var(--accent-secondary);
     }
 
     .info-card h3 {
       color: var(--accent-secondary);
-      font-size: 1.4rem;
-      margin-bottom: 15px;
+      font-size: 1.2rem;
+      margin-bottom: 12px;
       font-weight: 600;
       line-height: 1.3;
     }
 
     .info-card p {
       color: var(--text-tertiary);
-      font-size: 1rem;
-      line-height: 1.6;
+      font-size: 0.9rem;
+      line-height: 1.5;
       flex-grow: 1;
     }
 
@@ -388,40 +399,41 @@
       grid-area: sidebar;
       display: flex;
       flex-direction: column;
-      gap: 40px;
-      padding: 40px;
+      gap: 30px;
+      padding: 30px;
       background: var(--bg-surface);
-      border-radius: 24px;
+      border-radius: 20px;
       border: 1px solid var(--border-light);
       box-shadow: var(--card-shadow);
       height: fit-content;
+      margin-top: -10px;
     }
 
     .section-title {
       color: var(--accent-secondary);
-      font-size: 1.5rem;
-      margin-bottom: 25px;
+      font-size: 1.3rem;
+      margin-bottom: 20px;
       font-weight: 600;
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding-bottom: 15px;
+      gap: 10px;
+      padding-bottom: 12px;
       border-bottom: 1px solid var(--border-color);
     }
 
     .tutorial-section {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
-      border-radius: 18px;
-      padding: 30px;
+      border-radius: 16px;
+      padding: 25px;
       box-shadow: var(--accent-glow);
     }
 
     .step {
       display: flex;
-      gap: 20px;
-      margin-bottom: 25px;
-      padding-bottom: 25px;
+      gap: 15px;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
       border-bottom: 1px solid rgba(255,255,255,0.05);
     }
 
@@ -432,8 +444,8 @@
     }
 
     .step-number {
-      width: 40px;
-      height: 40px;
+      width: 35px;
+      height: 35px;
       background: var(--gradient-accent);
       border-radius: 50%;
       display: flex;
@@ -442,20 +454,20 @@
       font-weight: 700;
       color: var(--text-primary);
       flex-shrink: 0;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       box-shadow: var(--accent-glow);
     }
 
     .step-content h4 {
       color: var(--text-primary);
-      margin-bottom: 8px;
-      font-size: 1.15rem;
+      margin-bottom: 6px;
+      font-size: 1.05rem;
       font-weight: 600;
     }
 
     .step-content p {
       color: var(--text-tertiary);
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       line-height: 1.5;
     }
 
@@ -473,30 +485,30 @@
     .music-player {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
-      border-radius: 18px;
-      padding: 30px;
+      border-radius: 16px;
+      padding: 25px;
       box-shadow: var(--accent-glow);
     }
 
     .music-controls {
       display: flex;
       flex-direction: column;
-      gap: 25px;
+      gap: 20px;
     }
 
     .music-btn {
       background: var(--gradient-accent);
       border: none;
       color: var(--text-primary);
-      padding: 18px 30px;
-      border-radius: 12px;
+      padding: 15px 25px;
+      border-radius: 10px;
       cursor: pointer;
       transition: all 0.3s ease;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 15px;
-      font-size: 1.05rem;
+      gap: 12px;
+      font-size: 1rem;
       font-weight: 600;
       box-shadow: var(--accent-glow);
     }
@@ -507,16 +519,16 @@
     }
 
     .music-btn svg {
-      width: 22px;
-      height: 22px;
+      width: 20px;
+      height: 20px;
       fill: currentColor;
     }
 
     .visualizer-container {
       width: 100%;
-      height: 100px;
+      height: 90px;
       background: var(--bg-secondary);
-      border-radius: 12px;
+      border-radius: 10px;
       overflow: hidden;
       border: 1px solid var(--border-color);
       position: relative;
@@ -529,7 +541,7 @@
       display: flex;
       align-items: flex-end;
       justify-content: space-around;
-      padding: 15px;
+      padding: 12px;
     }
 
     .visualizer-bar {
@@ -546,15 +558,16 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 30px 20px 0 20px;
+      padding: 20px 10px 0 10px;
       border-top: 1px solid var(--border-light);
       color: var(--text-tertiary);
-      font-size: 0.95rem;
+      font-size: 0.9rem;
+      margin-bottom: -15px;
     }
 
     .footer-links {
       display: flex;
-      gap: 35px;
+      gap: 25px;
     }
 
     .footer a {
@@ -563,7 +576,7 @@
       transition: color 0.3s ease;
       font-weight: 500;
       position: relative;
-      padding: 5px 0;
+      padding: 3px 0;
     }
 
     .footer a::after {
@@ -587,13 +600,13 @@
 
     /* Animations */
     .spinner {
-      width: 80px;
-      height: 80px;
+      width: 70px;
+      height: 70px;
       border: 4px solid rgba(255,255,255,0.1);
       border-top: 4px solid var(--accent-secondary);
       border-radius: 50%;
       animation: spin 1s linear infinite;
-      margin: 40px auto;
+      margin: 20px auto;
       box-shadow: 0 0 20px rgba(255,255,255,0.1);
     }
 
@@ -604,10 +617,10 @@
 
     .regirako-container {
       position: absolute;
-      bottom: 60px;
-      right: 80px;
-      width: 200px;
-      height: 200px;
+      bottom: 30px;
+      right: 60px;
+      width: 160px;
+      height: 160px;
       opacity: 0.08;
       pointer-events: none;
       z-index: 1;
@@ -628,8 +641,7 @@
     /* Responsive adjustments */
     @media (max-width: 1920px) and (max-height: 1080px) {
       .container {
-        transform: scale(0.95);
-        transform-origin: center;
+        transform: translateX(-50%) scale(0.92);
       }
     }
 
@@ -643,42 +655,52 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .glow {
-      filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.2));
-    }
-
     /* Example code styling */
     .code-example {
       background: rgba(0, 0, 0, 0.4);
       border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 20px;
-      margin-top: 30px;
+      border-radius: 10px;
+      padding: 15px;
+      margin-top: 20px;
       font-family: 'Consolas', 'Monaco', monospace;
+      font-size: 0.85rem;
     }
 
     .code-example code {
       color: var(--accent-secondary);
-      font-size: 0.95rem;
       display: block;
-      line-height: 1.5;
+      line-height: 1.4;
       word-break: break-all;
     }
 
     /* Status indicators */
     .status-success .status-icon-container {
       border-color: rgba(255,255,255,0.2);
-      box-shadow: 0 0 30px rgba(255,255,255,0.1);
+      box-shadow: 0 0 25px rgba(255,255,255,0.1);
     }
 
     .status-error .status-icon-container {
       border-color: rgba(255,100,100,0.2);
-      box-shadow: 0 0 30px rgba(255,100,100,0.1);
+      box-shadow: 0 0 25px rgba(255,100,100,0.1);
     }
 
-    /* Smooth transitions */
-    .smooth-transition {
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg-card);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--border-light);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #444444;
     }
   </style>
 </head>
@@ -694,7 +716,7 @@
         </div>
       </div>
       <div class="security-badge">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
           <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.1,7 14,7.9 14,9C14,10.1 13.1,11 12,11C10.9,11 10,10.1 10,9C10,7.9 10.9,7 12,7M18,14.66C18,15.5 17.75,16.31 17.31,17H6.69C6.25,16.31 6,15.5 6,14.66V10.34C6,9.5 6.25,8.69 6.69,8H17.31C17.75,8.69 18,9.5 18,10.34V14.66Z"/>
         </svg>
         Open Source • Sem rastreamento • 100% Seguro
@@ -750,7 +772,7 @@
         <a href="https://github.com/Regirako/Magnet2URL" target="_blank">GitHub</a>
         <a href="https://github.com/Regirako" target="_blank">Autor</a>
         <a href="#" onclick="showHelp()">Como usar</a>
-        <a href="#" onclick="toggleMusic()">Controle de música</a>
+        <a href="#" onclick="toggleMusic()">Parar música</a>
       </div>
       <div>
         Magnet2URL © 2024 • Tecnologia segura e transparente
@@ -761,7 +783,7 @@
     <aside class="sidebar">
       <div class="tutorial-section hidden" id="tutorialSection">
         <h3 class="section-title">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2M12.5,17H11V13.5H7V12H11V7H12.5V12H17V13.5H12.5V17Z"/>
           </svg>
           Guia de Solução
@@ -791,7 +813,7 @@
 
       <div class="music-player hidden" id="musicPlayer">
         <h3 class="section-title">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12,3V12.26C11.5,12.09 11,12 10.5,12C7.46,12 5,14.46 5,17.5C5,20.54 7.46,23 10.5,23C13.54,23 16,20.54 16,17.5V6H19V3H12Z"/>
           </svg>
           Player Musical
@@ -799,9 +821,9 @@
         <div class="music-controls">
           <button class="music-btn" onclick="toggleMusic()" id="musicToggle">
             <svg viewBox="0 0 24 24">
-              <path d="M8,5.14V19.14L19,12.14L8,5.14Z"/>
+              <path d="M14,19H18V5H14M6,19H10V5H6V19Z"/>
             </svg>
-            Reproduzir Música
+            Parar Música
           </button>
           <div class="visualizer-container">
             <div class="visualizer" id="visualizer"></div>
@@ -817,7 +839,7 @@
   </div>
 
   <!-- Audio Element -->
-  <audio id="bg-audio" loop>
+  <audio id="bg-audio" loop autoplay>
     <source src="" type="audio/mpeg">
     Seu navegador não suporta o elemento de áudio.
   </audio>
@@ -828,7 +850,7 @@
     let context, analyser, source;
     let regirakoImg;
     let visualizerBars = [];
-    let isMusicPlaying = false;
+    let isMusicPlaying = true; // Agora começa como true
 
     const musicList = [
       'assets/tokyo.mp3',
@@ -851,25 +873,25 @@
     function toggleMusic() {
       if (!audio) return;
       
-      if (audio.paused) {
-        audio.play();
-        isMusicPlaying = true;
-        document.getElementById('musicToggle').innerHTML = `
-          <svg viewBox="0 0 24 24">
-            <path d="M14,19H18V5H14M6,19H10V5H6V19Z"/>
-          </svg>
-          Pausar Música
-        `;
-        if (!context) setupAudioVisualizer();
-      } else {
+      if (!audio.paused) {
         audio.pause();
         isMusicPlaying = false;
         document.getElementById('musicToggle').innerHTML = `
           <svg viewBox="0 0 24 24">
             <path d="M8,5.14V19.14L19,12.14L8,5.14Z"/>
           </svg>
-          Reproduzir Música
+          Tocar Música
         `;
+      } else {
+        audio.play();
+        isMusicPlaying = true;
+        document.getElementById('musicToggle').innerHTML = `
+          <svg viewBox="0 0 24 24">
+            <path d="M14,19H18V5H14M6,19H10V5H6V19Z"/>
+          </svg>
+          Parar Música
+        `;
+        if (!context) setupAudioVisualizer();
       }
     }
 
@@ -894,6 +916,7 @@
         for (let i = 0; i < barCount; i++) {
           const bar = document.createElement('div');
           bar.className = 'visualizer-bar';
+          bar.style.height = '20%'; // Altura inicial
           visualizer.appendChild(bar);
           visualizerBars.push(bar);
         }
@@ -914,18 +937,18 @@
       // Atualizar barras do visualizador
       visualizerBars.forEach((bar, i) => {
         const value = dataArray[Math.floor(i * bufferLength / visualizerBars.length)];
-        const height = 10 + (value / 255) * 80;
+        const height = 15 + (value / 255) * 70;
         bar.style.height = `${height}%`;
-        bar.style.opacity = 0.4 + (value / 255) * 0.6;
+        bar.style.opacity = 0.5 + (value / 255) * 0.5;
       });
       
       // Animar Regirako com a música
       if (regirakoImg) {
         const average = dataArray.reduce((a, b) => a + b, 0) / bufferLength;
-        const scale = 1 + (average / 512) * 0.15;
-        const rotation = (average / 100) * 3;
+        const scale = 1 + (average / 512) * 0.12;
+        const rotation = (average / 100) * 2;
         regirakoImg.style.transform = `scale(${scale}) rotate(${rotation}deg)`;
-        regirakoImg.style.opacity = 0.05 + (average / 1024);
+        regirakoImg.style.opacity = 0.06 + (average / 1024);
       }
       
       requestAnimationFrame(animateVisualizer);
@@ -982,13 +1005,13 @@
         content += `
           <div class="status-actions">
             <button class="btn btn-primary" onclick="redirecionar()">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M14,12L10,8V11H2V13H10V16M20,18V6C20,4.89 19.1,4 18,4H6A2,2 0 0,0 4,6V9H6V6H18V18H6V15H4V18A2,2 0 0,0 6,20H18A2,2 0 0,0 20,18Z"/>
               </svg>
               Tentar Novamente
             </button>
             <button class="btn btn-secondary" onclick="showHelp()">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M15.07,11.25L14.17,12.17C13.45,12.89 13,13.5 13,15H11V14.5C11,13.39 11.45,12.39 12.17,11.67L13.41,10.41C13.78,10.05 14,9.55 14,9C14,7.89 13.1,7 12,7A2,2 0 0,0 10,9H8A4,4 0 0,1 12,5A4,4 0 0,1 16,9C16,9.88 15.64,10.67 15.07,11.25M13,19H11V17H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2Z"/>
               </svg>
               Ajuda
@@ -1001,9 +1024,46 @@
       statusContent.innerHTML = content;
     }
 
+    function startMusic() {
+      const musicSrc = getRandomMusic();
+      audio = document.getElementById('bg-audio');
+      audio.src = musicSrc;
+      audio.volume = 0.4;
+      audio.autoplay = true;
+      
+      // Tentar reproduzir automaticamente
+      const playPromise = audio.play();
+      
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          isMusicPlaying = true;
+          document.getElementById('musicToggle').innerHTML = `
+            <svg viewBox="0 0 24 24">
+              <path d="M14,19H18V5H14M6,19H10V5H6V19Z"/>
+            </svg>
+            Parar Música
+          `;
+          setupAudioVisualizer();
+        }).catch(error => {
+          console.log('Reprodução automática bloqueada:', error);
+          // Se bloqueada, muda o botão para "Tocar Música"
+          document.getElementById('musicToggle').innerHTML = `
+            <svg viewBox="0 0 24 24">
+              <path d="M8,5.14V19.14L19,12.14L8,5.14Z"/>
+            </svg>
+            Tocar Música
+          `;
+          isMusicPlaying = false;
+        });
+      }
+    }
+
     window.onload = () => {
       magnetLink = decodeURIComponent(window.location.hash.substring(1));
       regirakoImg = document.getElementById('regirakoImg');
+
+      // Iniciar música automaticamente
+      startMusic();
 
       if (magnetLink.startsWith("magnet:?")) {
         // PRIMEIRA TELA: Redirecionamento automático
@@ -1020,34 +1080,13 @@
         setTimeout(() => {
           updateStatusCard(
             'Redirecionamento Não Efetuado',
-            'O cliente de torrent não foi iniciado automaticamente. Siga as instruções na barla lateral para configurar.',
+            'O cliente de torrent não foi iniciado automaticamente. Siga as instruções na barra lateral para configurar.',
             false,
             true
           );
           
           showTutorial();
           
-          // Configurar música
-          const musicSrc = getRandomMusic();
-          audio = document.getElementById('bg-audio');
-          audio.src = musicSrc;
-          audio.volume = 0.4;
-          
-          // Iniciar música automaticamente após 500ms
-          setTimeout(() => {
-            audio.play().then(() => {
-              isMusicPlaying = true;
-              document.getElementById('musicToggle').innerHTML = `
-                <svg viewBox="0 0 24 24">
-                  <path d="M14,19H18V5H14M6,19H10V5H6V19Z"/>
-                </svg>
-                Pausar Música
-              `;
-              if (!context) setupAudioVisualizer();
-            }).catch(e => {
-              console.log('Reprodução automática bloqueada:', e);
-            });
-          }, 500);
         }, 3000);
 
       } else {
@@ -1062,10 +1101,13 @@
         const example = document.createElement('div');
         example.className = 'code-example';
         example.innerHTML = `
-          <p style="color: var(--text-secondary); margin-bottom: 10px; font-size: 0.9rem;">Exemplo de URL com link magnet:</p>
+          <p style="color: var(--text-secondary); margin-bottom: 10px; font-size: 0.85rem;">Exemplo de URL com link magnet:</p>
           <code>https://seusite.com/#magnet:?xt=urn:btih:EXEMPLO123456789...</code>
         `;
         document.getElementById('statusContent').appendChild(example);
+        
+        // Mostrar sidebar mesmo na página inicial
+        showTutorial();
       }
       
       // Ajustar escala se não estiver em 1920x1080
@@ -1073,8 +1115,8 @@
         const scale = Math.min(
           window.innerWidth / 1920,
           window.innerHeight / 1080
-        ) * 0.92;
-        document.querySelector('.container').style.transform = `scale(${scale})`;
+        ) * 0.9;
+        document.querySelector('.container').style.transform = `translateX(-50%) scale(${scale})`;
       }
     };
 
@@ -1083,8 +1125,8 @@
       const scale = Math.min(
         window.innerWidth / 1920,
         window.innerHeight / 1080
-      ) * 0.92;
-      document.querySelector('.container').style.transform = `scale(${scale})`;
+      ) * 0.9;
+      document.querySelector('.container').style.transform = `translateX(-50%) scale(${scale})`;
     });
   </script>
 </body>
