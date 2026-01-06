@@ -84,46 +84,14 @@
       margin-top: -10px;
     }
 
-    .logo-container {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .logo-icon {
-      width: 50px;
-      height: 50px;
-      background: var(--gradient-accent);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 1.6rem;
-      color: var(--text-primary);
-      box-shadow: var(--accent-glow);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .logo-icon::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    }
-
     .logo-text {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 6px;
     }
 
     .logo-title {
-      font-size: 2rem;
+      font-size: 2.2rem;
       font-weight: 700;
       background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
       -webkit-background-clip: text;
@@ -133,7 +101,7 @@
     }
 
     .logo-subtitle {
-      font-size: 0.9rem;
+      font-size: 1rem;
       color: var(--text-tertiary);
       font-weight: 400;
     }
@@ -143,7 +111,7 @@
       border: 1px solid var(--border-light);
       border-radius: 8px;
       padding: 10px 20px;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       color: var(--accent-secondary);
       display: flex;
       align-items: center;
@@ -172,7 +140,7 @@
       background: var(--gradient-primary);
       border: 1px solid var(--border-light);
       border-radius: 20px;
-      padding: 40px;
+      padding: 45px;
       position: relative;
       overflow: hidden;
       box-shadow: var(--card-shadow);
@@ -200,14 +168,14 @@
     }
 
     .status-icon-container {
-      width: 120px;
-      height: 120px;
+      width: 130px;
+      height: 130px;
       background: var(--bg-surface);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 30px;
+      margin-bottom: 35px;
       border: 1px solid var(--border-light);
       box-shadow: var(--accent-glow);
       position: relative;
@@ -223,8 +191,8 @@
     }
 
     .status-icon {
-      width: 60px;
-      height: 60px;
+      width: 65px;
+      height: 65px;
       fill: var(--accent-secondary);
       filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
     }
@@ -234,9 +202,9 @@
     }
 
     .status-title {
-      font-size: 2.2rem;
+      font-size: 2.4rem;
       font-weight: 700;
-      margin-bottom: 15px;
+      margin-bottom: 18px;
       background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -246,24 +214,24 @@
 
     .status-description {
       color: var(--text-secondary);
-      font-size: 1.1rem;
-      margin-bottom: 30px;
+      font-size: 1.2rem;
+      margin-bottom: 35px;
       max-width: 700px;
       margin-left: auto;
       margin-right: auto;
-      line-height: 1.5;
+      line-height: 1.6;
     }
 
     .status-actions {
       display: flex;
-      gap: 15px;
-      margin-top: 20px;
+      gap: 18px;
+      margin-top: 25px;
     }
 
     .btn {
-      padding: 15px 30px;
+      padding: 16px 35px;
       border-radius: 10px;
-      font-size: 1rem;
+      font-size: 1.05rem;
       font-weight: 600;
       text-decoration: none;
       border: none;
@@ -272,8 +240,8 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      min-width: 200px;
+      gap: 12px;
+      min-width: 210px;
       box-shadow: var(--accent-glow);
       letter-spacing: 0.02em;
     }
@@ -320,7 +288,7 @@
     .info-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 25px;
+      gap: 28px;
       height: fit-content;
       margin-top: -20px;
     }
@@ -329,7 +297,7 @@
       background: var(--bg-surface);
       border: 1px solid var(--border-light);
       border-radius: 18px;
-      padding: 25px;
+      padding: 28px;
       transition: all 0.3s ease;
       display: flex;
       flex-direction: column;
@@ -362,36 +330,47 @@
     }
 
     .info-card-icon {
-      width: 50px;
-      height: 50px;
+      width: 55px;
+      height: 55px;
       background: var(--bg-card);
       border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
       border: 1px solid var(--border-color);
     }
 
     .info-card-icon svg {
-      width: 24px;
-      height: 24px;
+      width: 26px;
+      height: 26px;
       fill: var(--accent-secondary);
     }
 
     .info-card h3 {
       color: var(--accent-secondary);
-      font-size: 1.2rem;
-      margin-bottom: 12px;
+      font-size: 1.25rem;
+      margin-bottom: 14px;
       font-weight: 600;
       line-height: 1.3;
     }
 
     .info-card p {
       color: var(--text-tertiary);
-      font-size: 0.9rem;
+      font-size: 1rem;
       line-height: 1.5;
       flex-grow: 1;
+    }
+
+    .info-card a {
+      color: var(--accent-secondary);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s ease;
+    }
+
+    .info-card a:hover {
+      border-bottom-color: var(--accent-secondary);
     }
 
     /* Sidebar */
@@ -399,8 +378,8 @@
       grid-area: sidebar;
       display: flex;
       flex-direction: column;
-      gap: 30px;
-      padding: 30px;
+      gap: 32px;
+      padding: 32px;
       background: var(--bg-surface);
       border-radius: 20px;
       border: 1px solid var(--border-light);
@@ -411,13 +390,13 @@
 
     .section-title {
       color: var(--accent-secondary);
-      font-size: 1.3rem;
-      margin-bottom: 20px;
+      font-size: 1.35rem;
+      margin-bottom: 22px;
       font-weight: 600;
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding-bottom: 12px;
+      gap: 12px;
+      padding-bottom: 14px;
       border-bottom: 1px solid var(--border-color);
     }
 
@@ -425,15 +404,15 @@
       background: var(--bg-card);
       border: 1px solid var(--border-color);
       border-radius: 16px;
-      padding: 25px;
+      padding: 28px;
       box-shadow: var(--accent-glow);
     }
 
     .step {
       display: flex;
-      gap: 15px;
-      margin-bottom: 20px;
-      padding-bottom: 20px;
+      gap: 16px;
+      margin-bottom: 22px;
+      padding-bottom: 22px;
       border-bottom: 1px solid rgba(255,255,255,0.05);
     }
 
@@ -444,8 +423,8 @@
     }
 
     .step-number {
-      width: 35px;
-      height: 35px;
+      width: 38px;
+      height: 38px;
       background: var(--gradient-accent);
       border-radius: 50%;
       display: flex;
@@ -454,20 +433,20 @@
       font-weight: 700;
       color: var(--text-primary);
       flex-shrink: 0;
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       box-shadow: var(--accent-glow);
     }
 
     .step-content h4 {
       color: var(--text-primary);
-      margin-bottom: 6px;
-      font-size: 1.05rem;
+      margin-bottom: 8px;
+      font-size: 1.1rem;
       font-weight: 600;
     }
 
     .step-content p {
       color: var(--text-tertiary);
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       line-height: 1.5;
     }
 
@@ -486,29 +465,29 @@
       background: var(--bg-card);
       border: 1px solid var(--border-color);
       border-radius: 16px;
-      padding: 25px;
+      padding: 28px;
       box-shadow: var(--accent-glow);
     }
 
     .music-controls {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 22px;
     }
 
     .music-btn {
       background: var(--gradient-accent);
       border: none;
       color: var(--text-primary);
-      padding: 15px 25px;
+      padding: 16px 28px;
       border-radius: 10px;
       cursor: pointer;
       transition: all 0.3s ease;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 12px;
-      font-size: 1rem;
+      gap: 14px;
+      font-size: 1.05rem;
       font-weight: 600;
       box-shadow: var(--accent-glow);
     }
@@ -519,14 +498,14 @@
     }
 
     .music-btn svg {
-      width: 20px;
-      height: 20px;
+      width: 22px;
+      height: 22px;
       fill: currentColor;
     }
 
     .visualizer-container {
       width: 100%;
-      height: 90px;
+      height: 95px;
       background: var(--bg-secondary);
       border-radius: 10px;
       overflow: hidden;
@@ -541,15 +520,15 @@
       display: flex;
       align-items: flex-end;
       justify-content: space-around;
-      padding: 12px;
+      padding: 15px;
     }
 
     .visualizer-bar {
-      width: 8px;
+      width: 9px;
       background: var(--gradient-accent);
       border-radius: 4px 4px 0 0;
       transition: height 0.1s ease;
-      min-height: 10px;
+      min-height: 12px;
     }
 
     /* Footer */
@@ -558,16 +537,16 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 20px 10px 0 10px;
+      padding: 22px 10px 0 10px;
       border-top: 1px solid var(--border-light);
       color: var(--text-tertiary);
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       margin-bottom: -15px;
     }
 
     .footer-links {
       display: flex;
-      gap: 25px;
+      gap: 28px;
     }
 
     .footer a {
@@ -576,7 +555,7 @@
       transition: color 0.3s ease;
       font-weight: 500;
       position: relative;
-      padding: 3px 0;
+      padding: 4px 0;
     }
 
     .footer a::after {
@@ -600,13 +579,13 @@
 
     /* Animations */
     .spinner {
-      width: 70px;
-      height: 70px;
+      width: 75px;
+      height: 75px;
       border: 4px solid rgba(255,255,255,0.1);
       border-top: 4px solid var(--accent-secondary);
       border-radius: 50%;
       animation: spin 1s linear infinite;
-      margin: 20px auto;
+      margin: 25px auto;
       box-shadow: 0 0 20px rgba(255,255,255,0.1);
     }
 
@@ -617,14 +596,15 @@
 
     .regirako-container {
       position: absolute;
-      bottom: 30px;
-      right: 60px;
-      width: 160px;
-      height: 160px;
-      opacity: 0.08;
+      top: 120px;
+      right: 80px;
+      width: 180px;
+      height: 180px;
+      opacity: 0.12;
       pointer-events: none;
       z-index: 1;
       filter: grayscale(100%) contrast(120%);
+      mix-blend-mode: screen;
     }
 
     .regirako-container img {
@@ -660,16 +640,16 @@
       background: rgba(0, 0, 0, 0.4);
       border: 1px solid var(--border-color);
       border-radius: 10px;
-      padding: 15px;
-      margin-top: 20px;
+      padding: 18px;
+      margin-top: 25px;
       font-family: 'Consolas', 'Monaco', monospace;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
     }
 
     .code-example code {
       color: var(--accent-secondary);
       display: block;
-      line-height: 1.4;
+      line-height: 1.5;
       word-break: break-all;
     }
 
@@ -708,15 +688,12 @@
   <div class="container">
     <!-- Header -->
     <header class="header">
-      <div class="logo-container">
-        <div class="logo-icon">M2U</div>
-        <div class="logo-text">
-          <div class="logo-title">Magnet2URL</div>
-          <div class="logo-subtitle">Redirecionador seguro de links magnet</div>
-        </div>
+      <div class="logo-text">
+        <div class="logo-title">Magnet2URL</div>
+        <div class="logo-subtitle">Redirecionador seguro de links magnet</div>
       </div>
       <div class="security-badge">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
           <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.1,7 14,7.9 14,9C14,10.1 13.1,11 12,11C10.9,11 10,10.1 10,9C10,7.9 10.9,7 12,7M18,14.66C18,15.5 17.75,16.31 17.31,17H6.69C6.25,16.31 6,15.5 6,14.66V10.34C6,9.5 6.25,8.69 6.69,8H17.31C17.75,8.69 18,9.5 18,10.34V14.66Z"/>
         </svg>
         Open Source • Sem rastreamento • 100% Seguro
@@ -751,7 +728,7 @@
             </svg>
           </div>
           <h3>Código Aberto</h3>
-          <p>Transparência completa. Todo o código está disponível no GitHub para auditoria e contribuições.</p>
+          <p>Transparência completa. Todo o código está <a href="https://github.com/Regirako/Magnet2URL" target="_blank">disponível no GitHub</a> para auditoria e contribuições.</p>
         </div>
 
         <div class="info-card">
@@ -761,7 +738,7 @@
             </svg>
           </div>
           <h3>Compatível Universal</h3>
-          <p>Funciona com qBittorrent, μTorrent, Transmission e qualquer cliente que suporte links magnet.</p>
+          <p>Funciona com qBittorrent, Transmission e qualquer cliente que suporte links magnet.</p>
         </div>
       </div>
     </main>
@@ -783,7 +760,7 @@
     <aside class="sidebar">
       <div class="tutorial-section hidden" id="tutorialSection">
         <h3 class="section-title">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2M12.5,17H11V13.5H7V12H11V7H12.5V12H17V13.5H12.5V17Z"/>
           </svg>
           Guia de Solução
@@ -813,7 +790,7 @@
 
       <div class="music-player hidden" id="musicPlayer">
         <h3 class="section-title">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12,3V12.26C11.5,12.09 11,12 10.5,12C7.46,12 5,14.46 5,17.5C5,20.54 7.46,23 10.5,23C13.54,23 16,20.54 16,17.5V6H19V3H12Z"/>
           </svg>
           Player Musical
@@ -850,7 +827,7 @@
     let context, analyser, source;
     let regirakoImg;
     let visualizerBars = [];
-    let isMusicPlaying = true; // Agora começa como true
+    let isMusicPlaying = true;
 
     const musicList = [
       'assets/tokyo.mp3',
@@ -903,11 +880,9 @@
         source.connect(analyser);
         analyser.connect(context.destination);
         
-        // Configurar analyser
         analyser.fftSize = 256;
         const bufferLength = analyser.frequencyBinCount;
         
-        // Criar barras do visualizador
         const visualizer = document.getElementById('visualizer');
         visualizer.innerHTML = '';
         visualizerBars = [];
@@ -916,7 +891,7 @@
         for (let i = 0; i < barCount; i++) {
           const bar = document.createElement('div');
           bar.className = 'visualizer-bar';
-          bar.style.height = '20%'; // Altura inicial
+          bar.style.height = '20%';
           visualizer.appendChild(bar);
           visualizerBars.push(bar);
         }
@@ -934,7 +909,6 @@
       const dataArray = new Uint8Array(bufferLength);
       analyser.getByteFrequencyData(dataArray);
       
-      // Atualizar barras do visualizador
       visualizerBars.forEach((bar, i) => {
         const value = dataArray[Math.floor(i * bufferLength / visualizerBars.length)];
         const height = 15 + (value / 255) * 70;
@@ -942,13 +916,12 @@
         bar.style.opacity = 0.5 + (value / 255) * 0.5;
       });
       
-      // Animar Regirako com a música
       if (regirakoImg) {
         const average = dataArray.reduce((a, b) => a + b, 0) / bufferLength;
         const scale = 1 + (average / 512) * 0.12;
         const rotation = (average / 100) * 2;
         regirakoImg.style.transform = `scale(${scale}) rotate(${rotation}deg)`;
-        regirakoImg.style.opacity = 0.06 + (average / 1024);
+        regirakoImg.style.opacity = 0.08 + (average / 1024);
       }
       
       requestAnimationFrame(animateVisualizer);
@@ -981,7 +954,6 @@
       const statusSection = document.getElementById('statusSection');
       const statusContent = document.getElementById('statusContent');
       
-      // Reset classes
       statusSection.className = 'status-section fade-in';
       
       let content = `
@@ -1005,13 +977,13 @@
         content += `
           <div class="status-actions">
             <button class="btn btn-primary" onclick="redirecionar()">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M14,12L10,8V11H2V13H10V16M20,18V6C20,4.89 19.1,4 18,4H6A2,2 0 0,0 4,6V9H6V6H18V18H6V15H4V18A2,2 0 0,0 6,20H18A2,2 0 0,0 20,18Z"/>
               </svg>
               Tentar Novamente
             </button>
             <button class="btn btn-secondary" onclick="showHelp()">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M15.07,11.25L14.17,12.17C13.45,12.89 13,13.5 13,15H11V14.5C11,13.39 11.45,12.39 12.17,11.67L13.41,10.41C13.78,10.05 14,9.55 14,9C14,7.89 13.1,7 12,7A2,2 0 0,0 10,9H8A4,4 0 0,1 12,5A4,4 0 0,1 16,9C16,9.88 15.64,10.67 15.07,11.25M13,19H11V17H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2Z"/>
               </svg>
               Ajuda
@@ -1031,7 +1003,6 @@
       audio.volume = 0.4;
       audio.autoplay = true;
       
-      // Tentar reproduzir automaticamente
       const playPromise = audio.play();
       
       if (playPromise !== undefined) {
@@ -1046,7 +1017,6 @@
           setupAudioVisualizer();
         }).catch(error => {
           console.log('Reprodução automática bloqueada:', error);
-          // Se bloqueada, muda o botão para "Tocar Música"
           document.getElementById('musicToggle').innerHTML = `
             <svg viewBox="0 0 24 24">
               <path d="M8,5.14V19.14L19,12.14L8,5.14Z"/>
@@ -1062,21 +1032,17 @@
       magnetLink = decodeURIComponent(window.location.hash.substring(1));
       regirakoImg = document.getElementById('regirakoImg');
 
-      // Iniciar música automaticamente
       startMusic();
 
       if (magnetLink.startsWith("magnet:?")) {
-        // PRIMEIRA TELA: Redirecionamento automático
         updateStatusCard(
           'Redirecionando...',
           'Iniciando transferência para seu cliente de torrent',
           true
         );
 
-        // Tentar redirecionamento imediato
         window.location.href = magnetLink;
 
-        // Segunda tela: Mostrar tutorial se não redirecionou
         setTimeout(() => {
           updateStatusCard(
             'Redirecionamento Não Efetuado',
@@ -1090,27 +1056,23 @@
         }, 3000);
 
       } else {
-        // Página inicial (sem link magnet)
         updateStatusCard(
           'Pronto para Redirecionar',
           'Adicione um link magnet à URL para iniciar o download automaticamente',
           false
         );
         
-        // Adicionar exemplo de uso
         const example = document.createElement('div');
         example.className = 'code-example';
         example.innerHTML = `
-          <p style="color: var(--text-secondary); margin-bottom: 10px; font-size: 0.85rem;">Exemplo de URL com link magnet:</p>
+          <p style="color: var(--text-secondary); margin-bottom: 10px; font-size: 0.9rem;">Exemplo de URL com link magnet:</p>
           <code>https://seusite.com/#magnet:?xt=urn:btih:EXEMPLO123456789...</code>
         `;
         document.getElementById('statusContent').appendChild(example);
         
-        // Mostrar sidebar mesmo na página inicial
         showTutorial();
       }
       
-      // Ajustar escala se não estiver em 1920x1080
       if (window.innerWidth !== 1920 || window.innerHeight !== 1080) {
         const scale = Math.min(
           window.innerWidth / 1920,
@@ -1120,7 +1082,6 @@
       }
     };
 
-    // Ajustar na redimensionamento da janela
     window.addEventListener('resize', () => {
       const scale = Math.min(
         window.innerWidth / 1920,
