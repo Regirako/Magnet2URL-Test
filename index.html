@@ -1,179 +1,766 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Redirecionando Magnet</title>
-    <style>
-      body {
-        font-family: 'Segoe UI', sans-serif;
-        text-align: center;
-        padding: 2em;
-        background-color: #f5f5f5;
-        position: relative;
-        margin: 0;
-      }
-      h1, h2, p {
-        color: #333;
-      }
-      button {
-        padding: 12px 24px;
-        font-size: 1em;
-        border: none;
-        background-color: #2e7d32;
-        color: white;
-        border-radius: 8px;
-        cursor: pointer;
-        margin-top: 20px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        transition: transform 0.2s ease;
-      }
-      button:hover {
-        background-color: #1b5e20;
-        transform: scale(1.05);
-      }
-      .music-btn {
-        background-color: #d55901;
-      }
-      .music-btn:hover {
-        background-color: #842e03;
-      }
-      .footer-banner {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 40px;
-        background: rgba(51, 51, 51, 0.2);
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        z-index: 10;
-      }
-      .footer-banner span {
-        white-space: nowrap;
-        display: inline-block;
-        padding-left: 100%;
-        animation: slide-left 50s linear infinite;
-        color: #333;
-        font-size: 14px;
-        font-weight: bold;
-      }
-      @keyframes slide-left {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-100%); }
-      }
-      .regirako {
-        position: fixed;
-        bottom: 60px;
-        right: 20px;
-        height: 600px;
-        opacity: 0.5;
-        z-index: 5;
-        transform-origin: center center;
-        pointer-events: none;
-      }
-    </style>
-    <script>
-      let magnetLink = "";
-      let audio;
-      let context, analyser, source;
-      let regirakoImg;
+<head>
+  <meta charset="UTF-8" />
+  <title>Magnet2URL - Redirecionador de Links Magnet</title>
 
-      const musicList = [
-        'assets/tokyo.mp3',
-        'assets/mafland.mp3',
-        'assets/xuliana.mp3'
-      ];
+  <!-- Meta tags de segurança -->
+  <meta name="google-site-verification" content="rmhxBOZXrfRm7gnnhDCH19dY_IAXxXn_2B2y6tNi4VY" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: https:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src 'self';">
+  
+  <style>
+    :root {
+      --bg-primary: #0a1f0a;
+      --bg-secondary: #112211;
+      --bg-card: #1a331a;
+      --border-color: #2d4a2d;
+      --accent-green: #2ecc71;
+      --accent-green-dark: #27ae60;
+      --text-primary: #e8f5e9;
+      --text-secondary: #a5d6a7;
+      --gradient-primary: linear-gradient(135deg, #1a331a 0%, #0a1f0a 100%);
+      --gradient-accent: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+    }
 
-      function getRandomMusic() {
-        const index = Math.floor(Math.random() * musicList.length);
-        return musicList[index];
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        radial-gradient(circle at 20% 80%, rgba(46, 204, 113, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(39, 174, 96, 0.05) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 3rem;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: var(--gradient-accent);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--gradient-accent);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: var(--bg-primary);
+    }
+
+    .main-content {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .main-content {
+        grid-template-columns: 3fr 2fr;
       }
+    }
 
-      function redirecionar() {
-        if (magnetLink.startsWith("magnet:?")) {
-          window.location.href = magnetLink;
-        }
+    .status-card {
+      background: var(--gradient-primary);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 2.5rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .status-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+    }
+
+    .status-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gradient-accent);
+    }
+
+    .status-icon {
+      width: 80px;
+      height: 80px;
+      background: var(--bg-card);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 2rem;
+      border: 3px solid var(--accent-green);
+    }
+
+    .status-icon svg {
+      width: 40px;
+      height: 40px;
+      fill: var(--accent-green);
+    }
+
+    .status-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--accent-green), var(--accent-green-dark));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .status-description {
+      color: var(--text-secondary);
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+    }
+
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    @media (min-width: 480px) {
+      .button-group {
+        flex-direction: row;
+        justify-content: center;
       }
+    }
 
-      function toggleMusic() {
-        if (!audio) return;
+    .btn {
+      padding: 1rem 2rem;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      min-width: 200px;
+    }
 
-        if (audio.paused) {
-          audio.play();
-        } else {
-          audio.pause();
-        }
+    .btn-primary {
+      background: var(--gradient-accent);
+      color: var(--bg-primary);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(46, 204, 113, 0.3);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--accent-green);
+      border: 2px solid var(--border-color);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent-green);
+      transform: translateY(-2px);
+    }
+
+    .info-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .info-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .info-card:hover {
+      border-color: var(--accent-green);
+      transform: translateX(4px);
+    }
+
+    .info-card h3 {
+      color: var(--accent-green);
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .info-card p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    .music-player {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .music-controls {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .music-btn {
+      background: transparent;
+      border: 2px solid var(--accent-green);
+      color: var(--accent-green);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .music-btn:hover {
+      background: var(--accent-green);
+      color: var(--bg-primary);
+    }
+
+    .visualizer {
+      width: 100%;
+      height: 80px;
+      margin-top: 1rem;
+      position: relative;
+    }
+
+    .visualizer-bar {
+      position: absolute;
+      bottom: 0;
+      width: 4px;
+      background: var(--gradient-accent);
+      border-radius: 2px 2px 0 0;
+      animation: visualizer 1s ease-in-out infinite alternate;
+    }
+
+    @keyframes visualizer {
+      from { height: 20%; }
+      to { height: 100%; }
+    }
+
+    .footer {
+      margin-top: 4rem;
+      padding: 2rem 0;
+      border-top: 1px solid var(--border-color);
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .footer a {
+      color: var(--accent-green);
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.6; }
+      50% { opacity: 1; }
+      100% { opacity: 0.6; }
+    }
+
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid var(--border-color);
+      border-top: 4px solid var(--accent-green);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 2rem auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .regirako-container {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 150px;
+      height: 150px;
+      opacity: 0.15;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .regirako-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: transform 0.2s ease;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .security-badge {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--accent-green);
+      border-radius: 8px;
+      padding: 0.5rem 1rem;
+      font-size: 0.8rem;
+      color: var(--accent-green);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .tutorial-steps {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-top: 2rem;
+    }
+
+    .step {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .step:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .step-number {
+      width: 32px;
+      height: 32px;
+      background: var(--gradient-accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: var(--bg-primary);
+      flex-shrink: 0;
+    }
+
+    .step-content h4 {
+      color: var(--accent-green);
+      margin-bottom: 0.5rem;
+    }
+
+    .step-content p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="logo">
+        <div class="logo-icon">M2U</div>
+        <h1>Magnet2URL</h1>
+      </div>
+      <div class="security-badge">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.1,7 14,7.9 14,9C14,10.1 13.1,11 12,11C10.9,11 10,10.1 10,9C10,7.9 10.9,7 12,7M18,14.66C18,15.5 17.75,16.31 17.31,17H6.69C6.25,16.31 6,15.5 6,14.66V10.34C6,9.5 6.25,8.69 6.69,8H17.31C17.75,8.69 18,9.5 18,10.34V14.66Z"/>
+        </svg>
+        Open Source & Secure
+      </div>
+    </header>
+
+    <div class="main-content">
+      <div class="status-card" id="statusCard">
+        <!-- Conteúdo será preenchido pelo JavaScript -->
+      </div>
+
+      <div class="info-cards">
+        <div class="info-card">
+          <h3>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1Z"/>
+            </svg>
+            Segurança Garantida
+          </h3>
+          <p>Nenhum dado é coletado ou armazenado. O processo ocorre inteiramente no seu navegador.</p>
+        </div>
+
+        <div class="info-card">
+          <h3>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+            </svg>
+            Código Aberto
+          </h3>
+          <p>Projeto 100% open-source. Verifique o código no GitHub para total transparência.</p>
+        </div>
+
+        <div class="info-card">
+          <h3>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12,15A2,2 0 0,1 10,13C10,11.89 10.9,11 12,11A2,2 0 0,1 14,13A2,2 0 0,1 12,15M7,7C7,5.89 7.89,5 9,5A2,2 0 0,1 11,7A2,2 0 0,1 9,9C7.89,9 7,8.1 7,7M12,2C8.43,2 5.23,3.54 3,6L12,22L21,6C18.78,3.54 15.57,2 12,2Z"/>
+            </svg>
+            Compatível
+          </h3>
+          <p>Funciona com qualquer cliente de torrent que suporte links magnet (qBittorrent, μTorrent, etc).</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tutorial-steps hidden" id="tutorialSection">
+      <h3 style="color: var(--accent-green); margin-bottom: 1.5rem; font-size: 1.3rem;">Solução de Problemas</h3>
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <h4>Instale um Cliente de Torrent</h4>
+          <p>Baixe e instale o <a href="https://www.fosshub.com/qBittorrent.html" target="_blank" style="color: var(--accent-green);">qBittorrent (Windows 64-bit)</a> ou outro cliente de sua preferência.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <h4>Configure como Padrão</h4>
+          <p>Durante a instalação, permita que o programa seja o padrão para arquivos .torrent e Magnet Links.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <h4>Tente Novamente</h4>
+          <p>Retorne a esta página e clique no botão "Tentar Novamente" para iniciar o download.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="music-player hidden" id="musicPlayer">
+      <div>
+        <h3 style="color: var(--accent-green); margin-bottom: 0.5rem;">Música de Fundo</h3>
+        <p style="color: var(--text-secondary); font-size: 0.9rem;">Reprodução aleatória de uma das nossas faixas</p>
+      </div>
+      <div class="music-controls">
+        <button class="music-btn" onclick="toggleMusic()" id="musicToggle">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 0.5rem;">
+            <path d="M8,5.14V19.14L19,12.14L8,5.14Z"/>
+          </svg>
+          Play/Pause
+        </button>
+        <div class="visualizer" id="visualizer"></div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p>© 2024 Magnet2URL - Um projeto <a href="https://github.com/Regirako/Magnet2URL" target="_blank">open-source</a></p>
+      <p style="margin-top: 0.5rem; font-size: 0.8rem;">Segurança e privacidade em primeiro lugar. Sem rastreamento, sem coleta de dados.</p>
+    </footer>
+  </div>
+
+  <div class="regirako-container" id="regirakoContainer">
+    <img src="assets/regirako.png" alt="Regirako" id="regirakoImg">
+  </div>
+
+  <audio id="bg-audio" loop>
+    <source src="" type="audio/mpeg">
+    Seu navegador não suporta o elemento de áudio.
+  </audio>
+
+  <script>
+    let magnetLink = "";
+    let audio;
+    let context, analyser, source;
+    let regirakoImg;
+    let visualizerBars = [];
+    let isMusicPlaying = false;
+
+    const musicList = [
+      'assets/tokyo.mp3',
+      'assets/mafland.mp3',
+      'assets/xuliana.mp3',
+      'assets/kenner.mp3'
+    ];
+
+    function getRandomMusic() {
+      const index = Math.floor(Math.random() * musicList.length);
+      return musicList[index];
+    }
+
+    function redirecionar() {
+      if (magnetLink.startsWith("magnet:?")) {
+        window.location.href = magnetLink;
       }
+    }
 
-      function animate() {
-        if (!analyser || !regirakoImg) return;
-
-        const data = new Uint8Array(analyser.frequencyBinCount);
-        analyser.getByteFrequencyData(data);
-        const average = data.reduce((a, b) => a + b, 0) / data.length;
-        const scale = 1 + (average / 512) * 0.42; // Aumentar ou Diminuir nível da pulsação
-        regirakoImg.style.transform = `scale(${scale})`;
-        requestAnimationFrame(animate);
+    function toggleMusic() {
+      if (!audio) return;
+      
+      if (audio.paused) {
+        audio.play();
+        isMusicPlaying = true;
+        document.getElementById('musicToggle').innerHTML = `
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 0.5rem;">
+            <path d="M14,19H18V5H14M6,19H10V5H6V19Z"/>
+          </svg>
+          Pausar
+        `;
+        if (!context) setupAudioVisualizer();
+      } else {
+        audio.pause();
+        isMusicPlaying = false;
+        document.getElementById('musicToggle').innerHTML = `
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 0.5rem;">
+            <path d="M8,5.14V19.14L19,12.14L8,5.14Z"/>
+          </svg>
+          Play
+        `;
       }
+    }
 
-      function setupAudioVisualizer() {
+    function setupAudioVisualizer() {
+      try {
         context = new (window.AudioContext || window.webkitAudioContext)();
         analyser = context.createAnalyser();
         source = context.createMediaElementSource(audio);
         source.connect(analyser);
         analyser.connect(context.destination);
-        animate();
-      }
-
-      window.onload = () => {
-        magnetLink = decodeURIComponent(window.location.hash.substring(1));
-        if (magnetLink.startsWith("magnet:?")) {
-          window.location.href = magnetLink;
-
-          setTimeout(() => {
-            const musicSrc = getRandomMusic();
-
-            document.body.innerHTML = `
-              <h2>Você não foi redirecionado automaticamente?</h2>
-              <p>
-                Isso pode ocorrer se você não tiver um programa de gerenciamento de arquivos torrents para capturar <strong>Magnet Links</strong> instalado.<br><br>
-                <strong>1.</strong> Baixe e instale o <a href='https://www.fosshub.com/qBittorrent.html' target='_blank'><strong>qBittorrent Windows 64x bits</strong></a>.<br>
-                <strong>2.</strong> Durante a instalação, permita que ele seja o programa padrão para arquivos <strong>.torrent</strong> e <strong>Magnet Links</strong>.<br>
-                <strong>3.</strong> Volte nesta página e clique no botão abaixo:
-              </p>
-              <button onclick="redirecionar()">Clique aqui para tentar novamente</button><br>
-              <button class="music-btn" onclick="toggleMusic()">Music ON/OFF</button>
-              <div class="footer-banner">
-                <span><strong>Leia o que está escrito na página, é um tutorial de como utilizar o redirecionamento automático para o download no aplicativo de gerenciamento de arquivos torrents.</strong></span>
-              </div>
-              <audio id="bg-audio" autoplay loop>
-                <source src="${musicSrc}" type="audio/mpeg">
-                Seu navegador não suporta o elemento de áudio.
-              </audio>
-              <img class="regirako" src="assets/regirako.png" alt="Regirako">
-            `;
-
-            audio = document.getElementById('bg-audio');
-            regirakoImg = document.querySelector('.regirako');
-
-            audio.onplay = () => {
-              if (!context) {
-                setupAudioVisualizer();
-              }
-            };
-          }, 3000);
-        } else {
-          document.body.innerHTML = `
-            <h1>Redirecionando para o cliente de torrent...</h1>
-            <img class="regirako" src="assets/regirako.png" alt="Regirako">
-          `;
+        
+        // Criar barras do visualizador
+        const visualizer = document.getElementById('visualizer');
+        visualizer.innerHTML = '';
+        visualizerBars = [];
+        
+        const barCount = 32;
+        for (let i = 0; i < barCount; i++) {
+          const bar = document.createElement('div');
+          bar.className = 'visualizer-bar';
+          bar.style.left = `${(i / barCount) * 100}%`;
+          bar.style.animationDelay = `${i * 0.05}s`;
+          visualizer.appendChild(bar);
+          visualizerBars.push(bar);
         }
-      };
-    </script>
-  </head>
-  <body>
-    <h1>Redirecionando para o cliente de torrent...</h1>
-    <img class="regirako" src="assets/regirako.png" alt="Regirako">
-  </body>
+        
+        animateVisualizer();
+      } catch (e) {
+        console.warn('Web Audio API não suportada:', e);
+      }
+    }
+
+    function animateVisualizer() {
+      if (!analyser || !isMusicPlaying) return;
+      
+      const bufferLength = analyser.frequencyBinCount;
+      const dataArray = new Uint8Array(bufferLength);
+      analyser.getByteFrequencyData(dataArray);
+      
+      // Atualizar barras do visualizador
+      visualizerBars.forEach((bar, i) => {
+        const value = dataArray[Math.floor(i * bufferLength / visualizerBars.length)];
+        const height = 20 + (value / 255) * 60;
+        bar.style.height = `${height}%`;
+      });
+      
+      // Animar Regirako com a música
+      if (regirakoImg) {
+        const average = dataArray.reduce((a, b) => a + b, 0) / bufferLength;
+        const scale = 1 + (average / 512) * 0.3;
+        regirakoImg.style.transform = `scale(${scale}) rotate(${average / 20}deg)`;
+      }
+      
+      requestAnimationFrame(animateVisualizer);
+    }
+
+    function createSpinner() {
+      const spinner = document.createElement('div');
+      spinner.className = 'spinner';
+      return spinner;
+    }
+
+    function showTutorial() {
+      document.getElementById('tutorialSection').classList.remove('hidden');
+      document.getElementById('musicPlayer').classList.remove('hidden');
+    }
+
+    function updateStatusCard(title, description, showSpinner = false, showButton = false) {
+      const statusCard = document.getElementById('statusCard');
+      let content = `
+        <div class="status-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M10,17L5,12L6.41,10.58L10,14.17L17.59,6.58L19,8M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2Z"/>
+          </svg>
+        </div>
+        <h2 class="status-title">${title}</h2>
+        <p class="status-description">${description}</p>
+      `;
+      
+      if (showSpinner) {
+        content += '<div class="spinner"></div>';
+      }
+      
+      if (showButton) {
+        content += `
+          <div class="button-group">
+            <button class="btn btn-primary" onclick="redirecionar()">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M14,12L10,8V11H2V13H10V16M20,18V6C20,4.89 19.1,4 18,4H6A2,2 0 0,0 4,6V9H6V6H18V18H6V15H4V18A2,2 0 0,0 6,20H18A2,2 0 0,0 20,18Z"/>
+              </svg>
+              Tentar Novamente
+            </button>
+          </div>
+        `;
+      }
+      
+      statusCard.innerHTML = content;
+    }
+
+    window.onload = () => {
+      magnetLink = decodeURIComponent(window.location.hash.substring(1));
+      regirakoImg = document.getElementById('regirakoImg');
+
+      if (magnetLink.startsWith("magnet:?")) {
+        // PRIMEIRA TELA: Redirecionamento automático
+        updateStatusCard(
+          'Redirecionando...',
+          'Iniciando transferência para seu cliente de torrent',
+          true
+        );
+
+        // Tentar redirecionamento imediato
+        window.location.href = magnetLink;
+
+        // Segunda tela: Mostrar tutorial se não redirecionou
+        setTimeout(() => {
+          updateStatusCard(
+            'Redirecionamento Falhou',
+            'Não foi possível iniciar o cliente de torrent automaticamente',
+            false,
+            true
+          );
+          
+          showTutorial();
+          
+          // Configurar música
+          const musicSrc = getRandomMusic();
+          audio = document.getElementById('bg-audio');
+          audio.src = musicSrc;
+          audio.volume = 0.7;
+          
+          // Iniciar música automaticamente
+          setTimeout(() => {
+            audio.play().then(() => {
+              isMusicPlaying = true;
+              document.getElementById('musicToggle').innerHTML = `
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 0.5rem;">
+                  <path d="M14,19H18V5H14M6,19H10V5H6V19Z"/>
+                </svg>
+                Pausar
+              `;
+              if (!context) setupAudioVisualizer();
+            }).catch(e => {
+              console.log('Reprodução automática bloqueada:', e);
+            });
+          }, 1000);
+        }, 3000);
+
+      } else {
+        // Página inicial (sem link magnet)
+        updateStatusCard(
+          'Pronto para Redirecionar',
+          'Cole um link magnet na URL após o # para iniciar o download',
+          false
+        );
+        
+        // Exibir exemplo de uso
+        const statusCard = document.getElementById('statusCard');
+        statusCard.innerHTML += `
+          <div class="tutorial-steps" style="margin-top: 2rem; background: transparent; border: 1px dashed var(--border-color);">
+            <div class="step">
+              <div class="step-number">?</div>
+              <div class="step-content">
+                <h4>Como Usar</h4>
+                <p>Adicione seu link magnet à URL: <code style="background: var(--bg-primary); padding: 2px 6px; border-radius: 4px; font-family: monospace;">https://seusite.com/#magnet:?xt=...</code></p>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+    };
+  </script>
+</body>
 </html>
