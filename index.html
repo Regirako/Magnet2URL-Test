@@ -333,7 +333,6 @@
       gap: 20px;
       height: fit-content;
       margin-top: 0;
-      max-height: 240px;
     }
 
     .info-card {
@@ -349,7 +348,6 @@
       overflow: hidden;
       height: 100%;
       font-size: 0.9em;
-      min-height: 220px; /* Altura mínima para alinhar com a sidebar */
     }
 
     .info-card::before {
@@ -427,12 +425,11 @@
       grid-area: sidebar;
       display: flex;
       flex-direction: column;
-      gap: 25px;
-      padding: 25px;
-      background: var(--bg-surface);
-      border-radius: 18px;
-      border: 1px solid var(--border-light);
-      box-shadow: var(--card-shadow);
+      gap: 20px;
+      padding: 0;
+      background: transparent;
+      border: none;
+      box-shadow: none;
       height: fit-content;
       margin-top: 0;
       max-height: calc(100vh - 180px);
@@ -452,22 +449,29 @@
     }
 
     .tutorial-section {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 14px;
-      padding: 25px; /* Aumentado de 20px para 25px */
-      box-shadow: var(--accent-glow);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      border-radius: 18px;
+      padding: 25px;
+      box-shadow: var(--card-shadow);
       font-size: 0.9em;
-      min-height: 220px; /* Adicionada altura mínima para alinhar */
+      min-height: 300px;
       display: flex;
       flex-direction: column;
+      transition: all 0.3s ease;
+    }
+
+    .tutorial-section:hover {
+      border-color: #444444;
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
     }
 
     .step {
       display: flex;
       gap: 12px;
-      margin-bottom: 18px; /* Aumentado de 15px para 18px */
-      padding-bottom: 18px; /* Aumentado de 15px para 18px */
+      margin-bottom: 20px;
+      padding-bottom: 20px;
       border-bottom: 1px solid rgba(255,255,255,0.05);
     }
 
@@ -494,7 +498,7 @@
 
     .step-content h4 {
       color: var(--text-primary);
-      margin-bottom: 8px; /* Aumentado de 6px para 8px */
+      margin-bottom: 8px;
       font-size: 1rem;
       font-weight: 600;
     }
@@ -502,7 +506,7 @@
     .step-content p {
       color: var(--text-tertiary);
       font-size: 0.9rem;
-      line-height: 1.5; /* Aumentado de 1.4 para 1.5 */
+      line-height: 1.5;
     }
 
     .step-content a {
@@ -517,21 +521,28 @@
     }
 
     .music-player {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 14px;
-      padding: 25px; /* Aumentado de 20px para 25px */
-      box-shadow: var(--accent-glow);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      border-radius: 18px;
+      padding: 25px;
+      box-shadow: var(--card-shadow);
       font-size: 0.9em;
-      min-height: 180px; /* Altura mínima ajustada */
+      min-height: 200px;
       display: flex;
       flex-direction: column;
+      transition: all 0.3s ease;
+    }
+
+    .music-player:hover {
+      border-color: #444444;
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
     }
 
     .music-controls {
       display: flex;
       flex-direction: column;
-      gap: 20px; /* Aumentado de 15px para 20px */
+      gap: 20px;
       flex-grow: 1;
     }
 
@@ -674,6 +685,7 @@
           "sidebar"
           "footer";
         padding: 12px;
+        gap: 15px;
       }
       
       .header {
@@ -697,10 +709,17 @@
         max-height: none;
       }
       
-      .info-card,
+      .sidebar {
+        gap: 15px;
+      }
+      
       .tutorial-section,
       .music-player {
-        min-height: auto; /* Remove altura mínima em telas menores */
+        min-height: auto;
+      }
+      
+      .info-grid {
+        grid-template-columns: 1fr;
       }
     }
 
@@ -742,7 +761,7 @@
       
       .tutorial-section,
       .music-player {
-        padding: 20px; /* Reduz padding em telas menores */
+        padding: 20px;
       }
       
       .step {
@@ -787,7 +806,7 @@
       
       .tutorial-section,
       .music-player {
-        padding: 18px; /* Reduz mais em telas muito pequenas */
+        padding: 18px;
       }
     }
 
