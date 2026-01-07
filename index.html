@@ -190,12 +190,45 @@
       height: 100%;
       object-fit: contain;
       transition: all 0.3s ease;
-      filter: brightness(1.1) contrast(1.1) saturate(1.2) drop-shadow(0 0 15px rgba(255, 107, 0, 0.4));
+      filter: brightness(1.1) contrast(1.1) saturate(1.2);
+      animation: avatar-pulse 2s infinite alternate ease-in-out;
     }
 
     .status-avatar:hover {
       transform: rotate(5deg) scale(1.05);
-      filter: brightness(1.2) contrast(1.2) saturate(1.3) drop-shadow(0 0 20px rgba(255, 107, 0, 0.6));
+      filter: brightness(1.2) contrast(1.2) saturate(1.3);
+      animation-play-state: paused;
+    }
+
+    @keyframes avatar-pulse {
+      0% {
+        filter: brightness(1.1) contrast(1.1) saturate(1.2) drop-shadow(0 0 10px rgba(255, 107, 0, 0.4));
+      }
+      50% {
+        filter: brightness(1.15) contrast(1.15) saturate(1.25) drop-shadow(0 0 20px rgba(255, 107, 0, 0.6));
+      }
+      100% {
+        filter: brightness(1.1) contrast(1.1) saturate(1.2) drop-shadow(0 0 15px rgba(255, 107, 0, 0.8));
+      }
+    }
+
+    .music-playing .status-avatar {
+      animation: music-pulse 1s infinite alternate ease-in-out;
+    }
+
+    @keyframes music-pulse {
+      0% {
+        filter: brightness(1.1) contrast(1.1) saturate(1.2) drop-shadow(0 0 15px rgba(255, 107, 0, 0.6));
+        transform: scale(1);
+      }
+      50% {
+        filter: brightness(1.2) contrast(1.2) saturate(1.3) drop-shadow(0 0 25px rgba(255, 107, 0, 0.8));
+        transform: scale(1.02);
+      }
+      100% {
+        filter: brightness(1.15) contrast(1.15) saturate(1.25) drop-shadow(0 0 20px rgba(255, 107, 0, 1));
+        transform: scale(1.01);
+      }
     }
 
     .status-icon {
@@ -619,8 +652,6 @@
       100% { transform: rotate(360deg); }
     }
 
-    /* Removido o container do regirako no canto inferior direito */
-
     .hidden {
       display: none !important;
     }
@@ -692,7 +723,7 @@
       }
       
       .footer-links {
-        gap: 12px;
+        gap: 15px;
       }
     }
 
@@ -727,7 +758,7 @@
       }
       
       .footer-links {
-        gap: 8px;
+        gap: 10px;
       }
     }
 
@@ -764,11 +795,11 @@
 
     /* Status indicators */
     .status-success .status-avatar-container .status-avatar {
-      filter: brightness(1.1) contrast(1.1) saturate(1.2) drop-shadow(0 0 15px rgba(255, 107, 0, 0.4));
+      animation: avatar-pulse 2s infinite alternate ease-in-out;
     }
 
     .status-error .status-avatar-container .status-avatar {
-      filter: brightness(1.1) contrast(1.1) saturate(1.2) drop-shadow(0 0 15px rgba(255, 100, 100, 0.4));
+      animation: avatar-pulse 2s infinite alternate ease-in-out;
     }
 
     /* Scrollbar */
@@ -869,9 +900,8 @@
     <footer class="footer">
       <div class="footer-links">
         <a href="https://github.com/Regirako/Magnet2URL" target="_blank">GitHub</a>
-        <a href="https://github.com/Regirako" target="_blank">Autor</a>
         <a href="#" onclick="showHelp()">Como usar</a>
-        <a href="#" onclick="toggleMusic()">Parar música</a>
+        <a href="#" onclick="toggleMusic()" id="musicFooterBtn">Parar música</a>
       </div>
       <div>
         Magnet2URL © 2024 • Tecnologia segura e transparente
@@ -942,7 +972,6 @@
     let magnetLink = "";
     let audio;
     let context, analyser, source;
-    let regirakoImg;
     let visualizerBars = [];
     let isMusicPlaying = true;
     let animationId = null;
@@ -977,6 +1006,13 @@
           </svg>
           Tocar Música
         `;
+        document.getElementById('musicFooterBtn').textContent = 'Tocar música';
+        
+        // Remove a classe de música tocando do avatar
+        const statusSection = document.getElementById('statusSection');
+        if (statusSection) {
+          statusSection.classList.remove('music-playing');
+        }
         
         // Para a animação quando a música pausa
         if (animationId) {
@@ -992,6 +1028,14 @@
           </svg>
           Parar Música
         `;
+        document.getElementById('musicFooterBtn').textContent = 'Parar música';
+        
+        // Adiciona a classe de música tocando ao avatar
+        const statusSection = document.getElementById('statusSection');
+        if (statusSection) {
+          statusSection.classList.add('music-playing');
+        }
+        
         if (!context) setupAudioVisualizer();
         else animateVisualizer(); // Reinicia a animação
       }
@@ -1022,6 +1066,12 @@
         }
         
         animateVisualizer();
+        
+        // Adiciona a classe de música tocando ao avatar
+        const statusSection = document.getElementById('statusSection');
+        if (statusSection) {
+          statusSection.classList.add('music-playing');
+        }
       } catch (e) {
         console.warn('Web Audio API não suportada:', e);
       }
@@ -1056,19 +1106,6 @@
           hsl(${hue + 20}, 100%, 70%))`;
         bar.style.boxShadow = `0 0 ${8 + intensity * 8}px rgba(255, ${107 + intensity * 100}, 0, ${0.5 + intensity * 0.3})`;
       });
-      
-      // Aplica efeitos de animação ao avatar do Regirako no status section
-      const statusAvatar = document.querySelector('.status-avatar');
-      if (statusAvatar && isMusicPlaying) {
-        const average = dataArray.reduce((a, b) => a + b, 0) / bufferLength;
-        const scale = 1 + (average / 512) * 0.12;
-        const rotation = (average / 100) * 2;
-        statusAvatar.style.transform = `scale(${scale}) rotate(${rotation}deg)`;
-        
-        // Efeito de brilho pulsante baseado na música
-        const pulse = 0.5 + (average / 512) * 0.5;
-        statusAvatar.style.filter = `brightness(${1 + pulse * 0.3}) contrast(1.1) saturate(1.2) drop-shadow(0 0 ${10 + average / 25}px rgba(255, 107, 0, ${0.4 + average / 512}))`;
-      }
       
       animationId = requestAnimationFrame(animateVisualizer);
     }
@@ -1149,6 +1186,11 @@
         `;
         statusContent.appendChild(example);
       }
+      
+      // Se a música está tocando, adiciona a classe de animação
+      if (isMusicPlaying && !audio.paused) {
+        statusSection.classList.add('music-playing');
+      }
     }
 
     function startMusic() {
@@ -1169,6 +1211,14 @@
             </svg>
             Parar Música
           `;
+          document.getElementById('musicFooterBtn').textContent = 'Parar música';
+          
+          // Adiciona a classe de música tocando ao avatar
+          const statusSection = document.getElementById('statusSection');
+          if (statusSection) {
+            statusSection.classList.add('music-playing');
+          }
+          
           setupAudioVisualizer();
         }).catch(error => {
           console.log('Reprodução automática bloqueada:', error);
@@ -1178,6 +1228,7 @@
             </svg>
             Tocar Música
           `;
+          document.getElementById('musicFooterBtn').textContent = 'Tocar música';
           isMusicPlaying = false;
         });
       }
