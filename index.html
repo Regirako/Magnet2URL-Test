@@ -333,6 +333,7 @@
       gap: 20px;
       height: fit-content;
       margin-top: 0;
+      max-height: 240px;
     }
 
     .info-card {
@@ -425,11 +426,12 @@
       grid-area: sidebar;
       display: flex;
       flex-direction: column;
-      gap: 20px;
-      padding: 0;
-      background: transparent;
-      border: none;
-      box-shadow: none;
+      gap: 25px;
+      padding: 25px;
+      background: var(--bg-surface);
+      border-radius: 18px;
+      border: 1px solid var(--border-light);
+      box-shadow: var(--card-shadow);
       height: fit-content;
       margin-top: 0;
       max-height: calc(100vh - 180px);
@@ -449,29 +451,19 @@
     }
 
     .tutorial-section {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-light);
-      border-radius: 18px;
-      padding: 25px;
-      box-shadow: var(--card-shadow);
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: var(--accent-glow);
       font-size: 0.9em;
-      min-height: 300px;
-      display: flex;
-      flex-direction: column;
-      transition: all 0.3s ease;
-    }
-
-    .tutorial-section:hover {
-      border-color: #444444;
-      transform: translateY(-3px);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
     }
 
     .step {
       display: flex;
       gap: 12px;
-      margin-bottom: 20px;
-      padding-bottom: 20px;
+      margin-bottom: 15px;
+      padding-bottom: 15px;
       border-bottom: 1px solid rgba(255,255,255,0.05);
     }
 
@@ -498,7 +490,7 @@
 
     .step-content h4 {
       color: var(--text-primary);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       font-size: 1rem;
       font-weight: 600;
     }
@@ -506,7 +498,7 @@
     .step-content p {
       color: var(--text-tertiary);
       font-size: 0.9rem;
-      line-height: 1.5;
+      line-height: 1.4;
     }
 
     .step-content a {
@@ -521,29 +513,18 @@
     }
 
     .music-player {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-light);
-      border-radius: 18px;
-      padding: 25px;
-      box-shadow: var(--card-shadow);
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: var(--accent-glow);
       font-size: 0.9em;
-      min-height: 200px;
-      display: flex;
-      flex-direction: column;
-      transition: all 0.3s ease;
-    }
-
-    .music-player:hover {
-      border-color: #444444;
-      transform: translateY(-3px);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
     }
 
     .music-controls {
       display: flex;
       flex-direction: column;
-      gap: 20px;
-      flex-grow: 1;
+      gap: 15px;
     }
 
     .music-btn {
@@ -685,7 +666,6 @@
           "sidebar"
           "footer";
         padding: 12px;
-        gap: 15px;
       }
       
       .header {
@@ -707,19 +687,6 @@
       
       .main-content, .sidebar {
         max-height: none;
-      }
-      
-      .sidebar {
-        gap: 15px;
-      }
-      
-      .tutorial-section,
-      .music-player {
-        min-height: auto;
-      }
-      
-      .info-grid {
-        grid-template-columns: 1fr;
       }
     }
 
@@ -758,16 +725,6 @@
       .footer-links {
         gap: 15px;
       }
-      
-      .tutorial-section,
-      .music-player {
-        padding: 20px;
-      }
-      
-      .step {
-        margin-bottom: 15px;
-        padding-bottom: 15px;
-      }
     }
 
     @media (max-width: 480px) {
@@ -802,11 +759,6 @@
       
       .footer-links {
         gap: 10px;
-      }
-      
-      .tutorial-section,
-      .music-player {
-        padding: 18px;
       }
     }
 
